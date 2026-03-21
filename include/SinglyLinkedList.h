@@ -1,6 +1,9 @@
 //
 // Created by iraan on 20.03.2026.
 //
+#ifndef SINGLYLINKEDLIST_H
+#define SINGLYLINKEDLIST_H
+
 // Dynamiczna lista jednokierunkowa,  która jest inicjalizowana jako szablon
 template<class T>
 class SinglyLinkedList {
@@ -12,12 +15,19 @@ private:
     Node *head;
 
 public:
-    void SinglyLinkedList () {
+    SinglyLinkedList () {
         head = nullptr;
     }
 
+    ~SinglyLinkedList () {
+        Node *current = head;
+        while (current != nullptr) {
+            Node *next = current->next;
+            delete current;
+            current = next;
+        }
+    }
+
 };
-#ifndef SINGLYLINKEDLIST_H
-#define SINGLYLINKEDLIST_H
 
 #endif //SINGLYLINKEDLIST_H
