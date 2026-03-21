@@ -51,13 +51,7 @@ build cmake_object_order_depends_target_projekt_algorytmy: phony || .
 
 build CMakeFiles/projekt_algorytmy.dir/main.cpp.obj: CXX_COMPILER__projekt_algorytmy_unscanned_Debug C$:/Users/iraan/projekt-algorytmy/main.cpp || cmake_object_order_depends_target_projekt_algorytmy
   DEP_FILE = CMakeFiles\projekt_algorytmy.dir\main.cpp.obj.d
-  FLAGS = -g -std=gnu++14 -fdiagnostics-color=always
-  OBJECT_DIR = CMakeFiles\projekt_algorytmy.dir
-  OBJECT_FILE_DIR = CMakeFiles\projekt_algorytmy.dir
-
-build CMakeFiles/projekt_algorytmy.dir/Array.cpp.obj: CXX_COMPILER__projekt_algorytmy_unscanned_Debug C$:/Users/iraan/projekt-algorytmy/Array.cpp || cmake_object_order_depends_target_projekt_algorytmy
-  DEP_FILE = CMakeFiles\projekt_algorytmy.dir\Array.cpp.obj.d
-  FLAGS = -g -std=gnu++14 -fdiagnostics-color=always
+  FLAGS = -g -fdiagnostics-color=always
   OBJECT_DIR = CMakeFiles\projekt_algorytmy.dir
   OBJECT_FILE_DIR = CMakeFiles\projekt_algorytmy.dir
 
@@ -69,7 +63,7 @@ build CMakeFiles/projekt_algorytmy.dir/Array.cpp.obj: CXX_COMPILER__projekt_algo
 #############################################
 # Link the executable projekt_algorytmy.exe
 
-build projekt_algorytmy.exe: CXX_EXECUTABLE_LINKER__projekt_algorytmy_Debug CMakeFiles/projekt_algorytmy.dir/main.cpp.obj CMakeFiles/projekt_algorytmy.dir/Array.cpp.obj
+build projekt_algorytmy.exe: CXX_EXECUTABLE_LINKER__projekt_algorytmy_Debug CMakeFiles/projekt_algorytmy.dir/main.cpp.obj
   FLAGS = -g
   LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\projekt_algorytmy.dir
