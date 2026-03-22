@@ -19,11 +19,13 @@ class DoublyLinkedList {
     Node* tail;
     public:
 
+    //konstruktor
     DoublyLinkedList() {
         head = nullptr;
         tail = nullptr;
     };
 
+    //destruktor
     ~DoublyLinkedList() {
         Node *current = head;
         while (current != nullptr) {

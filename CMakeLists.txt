@@ -10,6 +10,9 @@ add_executable(projekt_algorytmy
         include/DoublyLinkedList.h
         include/SinglyLinkedList.h
         include/Array.h
+        src/FileReader.cpp
+        include/FileReader.h
+        include/Types.h
 )
 
 target_include_directories(projekt_algorytmy PRIVATE include)
