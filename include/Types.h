@@ -12,9 +12,9 @@ enum class StructureType {
 };
 
 enum class DataType {
-    Int,
-    Float,
-    Char,
-    Double
+    INT,
+    FLOAT,
+    CHAR,
+    DOUBLE
 };
 #endif //TYPES_H
