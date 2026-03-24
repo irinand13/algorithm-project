@@ -17,6 +17,7 @@ class DoublyLinkedList {
     };
     Node* head;
     Node* tail;
+    int size;
     public:
 
     //konstruktor
@@ -34,5 +35,19 @@ class DoublyLinkedList {
             current = next;
         }
     };
+
+    void push(T d) {
+        Node *newNode = new Node(d);
+        if (head == nullptr) {
+            head = newNode;
+        } else {
+            Node *current = head;
+            while (current->next != nullptr) {
+                current = current->next;
+            }
+            current->next = newNode;
+        }
+
+    }
 };
 #endif //DOUBLYLINKEDLIST_H

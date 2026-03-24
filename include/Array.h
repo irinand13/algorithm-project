@@ -29,7 +29,7 @@ public:
         delete[] data;
     }
 
-    void add(int index, const T& value) {
+    void set(int index, const T& value) {
         if (index >= array_size || index < 0) {
             throw std::invalid_argument("Index out of range");
         }else{
