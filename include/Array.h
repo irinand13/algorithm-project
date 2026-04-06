@@ -25,6 +25,30 @@ public:
         }
     }
 
+    Array(const Array& other) {
+        array_size = other.array_size;
+        data = new T[array_size];
+
+        for (int i = 0; i < array_size; i++) {
+            data[i] = other.data[i];
+        }
+    }
+
+    Array& operator=(const Array& other) {
+        if (this == &other) return *this;
+
+        delete[] data;
+
+        array_size = other.array_size;
+        data = new T[array_size];
+
+        for (int i = 0; i < array_size; i++) {
+            data[i] = other.data[i];
+        }
+
+        return *this;
+    }
+
     ~Array() {
         delete[] data;
     }
@@ -36,6 +60,14 @@ public:
             data[index] = value;
         }
     }
+
+    void readArray() {
+        std::cout<<"Array reading..."<<std::endl;
+        for (int i = 0; i < array_size; i++) {
+            std::cout<<data[i]<<std::endl;
+        }
+    }
+
 };
 
 

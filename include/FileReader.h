@@ -22,15 +22,14 @@ Array <T> readToArray (const string& fileName) {
 
     if(!file.is_open()) {
         cerr << "Error opening file " << fileName << endl;
-    }
-
-    else {
+        return Array<T>(0);
+    }else {
         file>>size;
 
         Array <T> array(size);
         for (int i = 0; i < size; i++) {
             file>>t;
-            array.add(i,t);
+            array.set(i,t);
         }
         return array;
     }
@@ -46,6 +45,7 @@ SinglyLinkedList<T> readToSinlyLinkedList (const string& fileName) {
 
     if(!file.is_open()) {
         cerr << "Error opening file " << fileName << endl;
+        return SinglyLinkedList<T>(0);
     }else {
         file>>size;
         SinglyLinkedList<T> list{};
@@ -67,6 +67,7 @@ DoublyLinkedList<T> readToDoublyLinkedList (const string& fileName) {
 
     if(!file.is_open()) {
         cerr << "Error opening file " << fileName << endl;
+        return DoublyLinkedList<T>(0);
     }else {
         file>>size;
         DoublyLinkedList<T> list{};

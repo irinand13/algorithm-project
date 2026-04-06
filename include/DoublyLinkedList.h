@@ -47,7 +47,6 @@ class DoublyLinkedList {
             }
             current->next = newNode;
         }
-
     }
 };
 #endif //DOUBLYLINKEDLIST_H
