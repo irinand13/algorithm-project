@@ -45,7 +45,7 @@ SinglyLinkedList<T> readToSinlyLinkedList (const string& fileName) {
 
     if(!file.is_open()) {
         cerr << "Error opening file " << fileName << endl;
-        return SinglyLinkedList<T>(0);
+        return SinglyLinkedList<T>();
     }else {
         file>>size;
         SinglyLinkedList<T> list{};
@@ -67,7 +67,7 @@ DoublyLinkedList<T> readToDoublyLinkedList (const string& fileName) {
 
     if(!file.is_open()) {
         cerr << "Error opening file " << fileName << endl;
-        return DoublyLinkedList<T>(0);
+        return DoublyLinkedList<T>();
     }else {
         file>>size;
         DoublyLinkedList<T> list{};

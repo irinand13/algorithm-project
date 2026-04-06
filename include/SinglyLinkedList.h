@@ -6,10 +6,10 @@
 #include <iterator>
 #include <bits/range_access.h>
 using namespace std;
+
 // Dynamiczna lista jednokierunkowa,  która jest inicjalizowana jako szablon
 template<class T>
 class SinglyLinkedList {
-
 private:
     struct Node  {
         T data;
@@ -32,7 +32,41 @@ public:
         size = 0;
     }
 
-    //destruktor listy
+    SinglyLinkedList (const SinglyLinkedList& other) {
+        head = nullptr;
+        size = 0;
+
+        Node* current = other.head;
+
+        while (current!=nullptr) {
+            push(current->data);
+            current = current->next;
+        }
+    }
+
+    SinglyLinkedList& operator=(const SinglyLinkedList& other) {
+        if (this == &other) return *this;
+
+        Node* current = head;
+        while (current!=nullptr) {
+            Node* next = current->next;
+            delete current;
+            current = next;
+        }
+        head = nullptr;
+        size = 0;
+
+        Node* temp = other.head;
+        while (temp!=nullptr) {
+            push(temp->data);
+            temp = temp->next;
+        }
+        return *this;
+    }
+
+
+
+        //destruktor listy
     ~SinglyLinkedList () {
         Node *current = head;
         while (current != nullptr) {
@@ -42,7 +76,7 @@ public:
         }
     }
 
-    //metoda która dodaje nową wartość do listy
+        //metoda która dodaje nową wartość do listy
     void push(T d) {
         Node *newNode = new Node(d);
         if (head == nullptr) {
@@ -54,6 +88,20 @@ public:
             }
             current->next = newNode;
         }
+        size++;
+    }
+
+    void read() {
+        Node *current = head;
+        while (current != nullptr) {
+            cout << current->data << " ";
+            cout << endl;
+            current = current->next;
+        }
+    }
+
+   void getSize() {
+        cout << this->size << endl;
     }
 };
 
