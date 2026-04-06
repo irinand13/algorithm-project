@@ -100,8 +100,8 @@ public:
         }
     }
 
-   void getSize() {
-        cout << this->size << endl;
+   int getSize() {
+        return size;
     }
 };
 

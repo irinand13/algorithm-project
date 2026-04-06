@@ -73,7 +73,7 @@ DoublyLinkedList<T> readToDoublyLinkedList (const string& fileName) {
         DoublyLinkedList<T> list{};
         for (int i = 0; i < size; i++) {
             file>>t;
-            list.push(t);
+            list.push_back(t);
         }
         return list;
     }

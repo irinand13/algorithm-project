@@ -14,6 +14,12 @@ class DoublyLinkedList {
         T data;
         Node* next;
         Node* prev;
+
+        Node(T d) {
+            data = d;
+            next = nullptr;
+            prev = nullptr;
+        };
     };
     Node* head;
     Node* tail;
@@ -34,19 +40,67 @@ class DoublyLinkedList {
             delete current;
             current = next;
         }
+        head = nullptr;
+        tail = nullptr;
+        size = 0;
     };
 
-    void push(T d) {
+    DoublyLinkedList(const DoublyLinkedList &other) {
+        head = nullptr;
+        tail = nullptr;
+        size = 0;
+
+        Node *current = other.head;
+        while (current != nullptr) {
+            push_back(current->data);
+            current = current->next;
+        }
+    }
+
+    DoublyLinkedList& operator=(const DoublyLinkedList &other) {
+        if (this != &other) return *this;
+        Node *current = other.head;
+        while (current != nullptr) {
+            Node *next = current->next;
+            delete current;
+            current = next;
+        }
+        head = nullptr;
+        tail = nullptr;
+        size = 0;
+        Node* temp = other.head;
+        while (temp != nullptr) {
+            push_back(temp->data);
+            temp = temp->next;
+        }
+        return *this;
+    }
+
+
+    void push_back(T d) {
         Node *newNode = new Node(d);
         if (head == nullptr) {
-            head = newNode;
+            head = tail = newNode;
         } else {
-            Node *current = head;
-            while (current->next != nullptr) {
-                current = current->next;
-            }
-            current->next = newNode;
+            tail->next = newNode;
+            newNode->prev = tail;
+            tail = newNode;
         }
+        size++;
+    }
+
+    void read() {
+        cout << "DoublyLinkedList::read()" << endl;
+        Node *current = head;
+        while (current != nullptr) {
+            std::cout << current->data << " ";
+            current = current->next;
+            cout << endl;
+        }
+    }
+
+    int getSize () {
+        return size;
     }
 };
 #endif //DOUBLYLINKEDLIST_H

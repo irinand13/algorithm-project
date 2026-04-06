@@ -61,7 +61,7 @@ public:
         }
     }
 
-    void readArray() {
+    void read() {
         std::cout<<"Array reading..."<<std::endl;
         for (int i = 0; i < array_size; i++) {
             std::cout<<data[i]<<std::endl;
