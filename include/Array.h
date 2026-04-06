@@ -5,6 +5,8 @@
 #ifndef ARRAY_H
 #define ARRAY_H
 #include <iostream>
+using namespace std;
+
 
 // Dynamiczna tablica, która jest inicjalizowana jako szablon
 template<class T>
@@ -53,6 +55,11 @@ public:
         delete[] data;
     }
 
+    T& operator[](int index) {
+        return data[index];
+    }
+
+
     void set(int index, const T& value) {
         if (index >= array_size || index < 0) {
             throw std::invalid_argument("Index out of range");
@@ -62,11 +69,36 @@ public:
     }
 
     void read() {
-        std::cout<<"Array reading..."<<std::endl;
+        cout<<"Array reading..."<<std::endl;
         for (int i = 0; i < array_size; i++) {
             std::cout<<data[i]<<std::endl;
         }
     }
+
+    T findMax() {
+        T max = data[0];
+        for (int i = 1; i < array_size; i++) {
+            if (data[i] > max) {
+                max = data[i];
+            }
+        }
+        return max;
+    }
+
+    T findMin() {
+        T min = data[0];
+        for (int i = 1; i < array_size; i++) {
+            if (data[i] < min) {
+                min = data[i];
+            }
+        }
+        return min;
+    }
+
+    int getSize() {
+        return array_size;
+    }
+
 
 };
 

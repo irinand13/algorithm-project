@@ -12,6 +12,7 @@ add_executable(projekt_algorytmy
         include/Array.h
         include/Types.h
         include/FileReader.h
+        include/ArraySort.h
 )
 
 target_include_directories(projekt_algorytmy PRIVATE include)
