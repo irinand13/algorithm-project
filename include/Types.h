@@ -5,16 +5,9 @@
 #ifndef TYPES_H
 #define TYPES_H
 
-enum class StructureType {
-    Array,
-    SinglyLinkedList,
-    DoublyLinkedList
-};
-
-enum class DataType {
-    INT,
-    FLOAT,
-    CHAR,
-    DOUBLE
+enum class PivotType {
+    RANDOM,
+    MIDDLE,
+    EXTREME
 };
 #endif //TYPES_H

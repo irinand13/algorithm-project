@@ -14,10 +14,10 @@ int main() {
      cout << endl;
      cout << arr.findMax() << endl;
      cout << arr.findMin() << endl;
-     ArraySort::busketSort(arr,10);
+     int first = 0;
+     int last = arr.getSize() - 1;
+     ArraySort::quickSort(arr,first,last, PivotType::MIDDLE);
 
      arr.read();
-     arr.read();
-
 
 }
