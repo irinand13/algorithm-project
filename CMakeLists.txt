@@ -13,6 +13,7 @@ add_executable(projekt_algorytmy
         include/Types.h
         include/FileReader.h
         include/ArraySort.h
+        include/SinglyLinkedListSort.h
 )
 
 target_include_directories(projekt_algorytmy PRIVATE include)

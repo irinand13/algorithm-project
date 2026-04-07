@@ -19,14 +19,14 @@ namespace ArraySort {
      */
     template<typename T>
     void insertionSort (T* arr, int size) {
-        for (int i = 0; i < size; i++) {
-            T temp = arr[i];
-            int j = i - 1;
-            while (j >= 0 && arr[j] > temp) {
-                arr[j + 1] = arr[j];
-                j--;
+        for (int i = 1; i < size; i++) {
+            T current = arr[i];
+            int otherIndex = i ;
+            while (otherIndex > 0 && arr[otherIndex-1] > current) {
+                arr[otherIndex] = arr[otherIndex - 1];
+                otherIndex--;
             }
-            arr[j + 1] = temp;
+            arr[otherIndex] = current;
         }
     }
 
