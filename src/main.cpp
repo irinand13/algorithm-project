@@ -18,6 +18,15 @@ int main() {
      int last = arr.getSize() - 1;
      ArraySort::quickSort(arr,first,last, PivotType::MIDDLE);
 
-     arr.read();
+     SinglyLinkedList<int> singlyLinkedList = readToSinlyLinkedList<int>(fileName);
+     singlyLinkedList.read();
+     cout << endl;
+     int max = singlyLinkedList.findMax();
+     int min = singlyLinkedList.findMin();
+
+     cout << max << endl;
+     cout << min << endl;
+
+
 
 }

@@ -66,7 +66,7 @@ public:
 
 
 
-        //destruktor listy
+    //destruktor listy
     ~SinglyLinkedList () {
         Node *current = head;
         while (current != nullptr) {
@@ -76,7 +76,7 @@ public:
         }
     }
 
-        //metoda która dodaje nową wartość do listy
+    //metoda która dodaje nową wartość do listy
     void push(T d) {
         Node *newNode = new Node(d);
         if (head == nullptr) {
@@ -100,9 +100,59 @@ public:
         }
     }
 
-   int getSize() {
+    int getSize() {
         return size;
     }
+
+    T findMin() const {
+        if (head == nullptr) {
+            cout << "The list is empty" << endl;
+            return T();
+        }
+        T min = head->data;
+        Node *current = head->next;
+        while (current != nullptr) {
+            if ((current->data) < min) {
+                min = current->data;
+            }
+            current = current->next;
+        }
+        return min;
+    }
+
+    T findMax() const {
+        if (head == nullptr) {
+            cout << "The list is empty" << endl;
+            return T();
+        }
+        T max = head->data;
+        Node *current = head->next;
+        while (current != nullptr) {
+            if (current->data> max) {
+                max = current->data;
+            }
+            current = current->next;
+        }
+        return max;
+    }
+
+    Node getHead() {
+        return head;
+    }
+
+    T get(int index) {
+
+        if (index < 0 || index >= getSize()) {
+            throw out_of_range("The index is out of range");
+        }
+        Node *current = head;
+        for (int i = 1; i < index; i++) {
+            current = current->next;
+        }
+        return current->data;
+    }
+
+
 };
 
 #endif //SINGLYLINKEDLIST_H
