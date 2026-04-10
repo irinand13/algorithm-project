@@ -136,7 +136,7 @@ public:
         return max;
     }
 
-    Node getHead() {
+    Node* getHead() {
         return head;
     }
 
