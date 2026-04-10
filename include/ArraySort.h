@@ -75,31 +75,35 @@ namespace ArraySort {
     void quickSort (Array<T>& arr, int first, int last, PivotType pivotType) {
         if (first >= last) return;
 
+        int pivotPosition;
         T pivot;
-        int p  = first - 1 ;
-        int q  = last + 1;
+
         switch (pivotType) {
-            case PivotType::MIDDLE :pivot = arr[(first + last) / 2]; break;
-            case PivotType::RANDOM : pivot = arr[rand() % (last - first + 1) + first]; break;
-            case PivotType::EXTREME : pivot = arr[last]; break;
+            case PivotType::MIDDLE :
+                pivotPosition = (first + last) / 2;
+                break;
+            case PivotType::RANDOM :
+                pivotPosition = rand() % (last - first + 1) + first;
+                break;
+            case PivotType::EXTREME :
+                pivotPosition = last;
+                break;
         }
+        pivot = arr[pivotPosition];
 
+        swap(arr[last], arr[pivotPosition]);
 
-        while (true) {
-            while (arr[++p] < pivot)
-                ;
-            while (arr[--q] > pivot)
-                ;
-
-            if (p >= q) break;
-            T temp = arr[p];
-            arr[p] = arr[q];
-            arr[q] = temp;
-
+        int i = first;
+        for (int j = first; j < last; j++) {
+            if(arr[j] < pivot) {
+                swap(arr[i], arr[j]);
+                i++;
+            }
         }
+        swap(arr[i], arr[last]);
 
-        if (q > first) quickSort(arr, first, q, pivotType);
-        if (q < last) quickSort(arr, q + 1, last, pivotType);
+        quickSort(arr, first, i - 1, pivotPosition);
+        quickSort(arr, i + 1, last, pivotPosition);
     }
 
 
@@ -108,6 +112,7 @@ namespace ArraySort {
 
 
     }
+
 }
 
 #endif //ARRAYSORT_H
