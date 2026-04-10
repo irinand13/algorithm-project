@@ -8,6 +8,7 @@
 using namespace std;
 
 int main() {
+     srand(time(NULL));
      string fileName = "data.txt";
      Array<int> arr = readToArray<int>(fileName);
      arr.read();
@@ -16,16 +17,19 @@ int main() {
      cout << arr.findMin() << endl;
      int first = 0;
      int last = arr.getSize() - 1;
-     ArraySort::quickSort(arr,first,last, PivotType::MIDDLE);
+     ArraySort::quickSort(arr,first,last, PivotType::EXTREME);
+     arr.read();
 
-     SinglyLinkedList<int> singlyLinkedList = readToSinlyLinkedList<int>(fileName);
-     singlyLinkedList.read();
-     cout << endl;
-     int max = singlyLinkedList.findMax();
-     int min = singlyLinkedList.findMin();
 
-     cout << max << endl;
-     cout << min << endl;
+     //
+     // SinglyLinkedList<int> singlyLinkedList = readToSinlyLinkedList<int>(fileName);
+     // singlyLinkedList.read();
+     // cout << endl;
+     // int max = singlyLinkedList.findMax();
+     // int min = singlyLinkedList.findMin();
+     //
+     // cout << max << endl;
+     // cout << min << endl;
 
 
 

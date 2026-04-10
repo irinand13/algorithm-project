@@ -3,8 +3,9 @@
 //
 #pragma once
 #include <Array.h>
-
 #include "Types.h"
+#include <cstdlib>
+#include <ctime>
 
 #ifndef ARRAYSORT_H
 #define ARRAYSORT_H
@@ -73,6 +74,7 @@ namespace ArraySort {
 
     template<typename T>
     void quickSort (Array<T>& arr, int first, int last, PivotType pivotType) {
+
         if (first >= last) return;
 
         int pivotPosition;
@@ -102,8 +104,8 @@ namespace ArraySort {
         }
         swap(arr[i], arr[last]);
 
-        quickSort(arr, first, i - 1, pivotPosition);
-        quickSort(arr, i + 1, last, pivotPosition);
+        quickSort(arr, first, i - 1, pivotType);
+        quickSort(arr, i + 1, last, pivotType);
     }
 
 
