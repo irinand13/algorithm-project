@@ -140,17 +140,6 @@ public:
         return head;
     }
 
-    T get(int index) {
-
-        if (index < 0 || index >= getSize()) {
-            throw out_of_range("The index is out of range");
-        }
-        Node *current = head;
-        for (int i = 1; i < index; i++) {
-            current = current->next;
-        }
-        return current->data;
-    }
 
 
 };

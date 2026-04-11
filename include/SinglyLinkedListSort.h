@@ -27,44 +27,41 @@ namespace SinglyListSort {
     }
 
     template<class T>
-    void quickSort(SinglyLinkedList<T>& list, PivotType pivotType) {
+    typename SinglyLinkedList<T>::Node*
+    Node* quickSort(SinglyLinkedList<T>& list, PivotType pivotType) {
+
         typename SinglyLinkedList<T>::Node* head = list.getHead();
+
+        if (!head || !head->next) return head;
         int size = list.getSize();
 
-        if (!head || !head->next) return;
-
-        typename SinglyLinkedList<T>::Node* pivotNode =nullptr;
+        typename SinglyLinkedList<T>::Node* pivotNode =head;
         switch (pivotType) {
 
             case PivotType::MIDDLE: {
-                int pivotPosition = size / 2;
-                pivotNode = head;
-
-                for (int i = 0; i < pivotPosition; i++)
+                for (int i = 0; i < size/2; i++)
                     pivotNode = pivotNode->next;
 
                 break;
             }
 
             case PivotType::RANDOM: {
-                int pivotPosition = rand() % size;
-                pivotNode = head;
-
-                for (int i = 0; i < pivotPosition; i++)
+                for (int i = 0; i < rand() % size ; i++) {
                     pivotNode = pivotNode->next;
-
+                }
                 break;
             }
 
             case PivotType::EXTREME: {
-                pivotNode = head;
                 while (pivotNode->next)
                     pivotNode = pivotNode->next;
-
                 break;
             }
         }
         T pivot = pivotNode->data;
+
+
+        return head;
     }
 }
 #endif //SINGLYLISTSORT_H
