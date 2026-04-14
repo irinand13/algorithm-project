@@ -3,16 +3,22 @@
 //
 #pragma once
 #include <Array.h>
-#include "Types.h"
 #include "Parameters.h"
 #include <cstdlib>
-#include <ctime>
 #include <cmath>
+
+#include "SinglyLinkedListSort.h"
 
 #ifndef ARRAYSORT_H
 #define ARRAYSORT_H
-namespace ArraySort {
 
+namespace ArraySort {
+    template<class T>
+    void swap(T& a, T& b) noexcept {
+        T temp = a;
+        a = b;
+        b = temp;
+    }
     // metoda sortawania przez wstawianie
     template<typename T>
     void insertionSort (T* arr, int size) {
@@ -28,8 +34,7 @@ namespace ArraySort {
     }
 
     template<typename T>
-    void quickSort (Array<T>& arr, int first, int last) {
-
+    void quickSortRecursive(Array<T>& arr, int first, int last) {
         if (first >= last) return;
 
         int pivotPosition;
@@ -68,17 +73,27 @@ namespace ArraySort {
         }
         swap(arr[i], arr[last]);
 
-        quickSort(arr, first, i - 1);
-        quickSort(arr, i + 1, last);
+        quickSortRecursive(arr, first, i - 1);
+        quickSortRecursive(arr, i + 1, last);
     }
+
+
+    template<typename T>
+    void quickSort (Array<T>& arr) {
+        if (arr.getSize() <= 1) return;
+        quickSortRecursive(arr, 0, arr.getSize() - 1);
+    }
+
 
 
     template<typename T>
     void bucketSort(Array<T>& arr) {
         const int size = arr.getSize();
-        const int bucketCount = sqrt(size);
+        const int bucketCount = std::max (1, static_cast<int>(std::sqrt(size)));
         T max = arr.findMax();
         T min = arr.findMin();
+
+        if (max == min) return;
 
 
         T** buckets = new T*[bucketCount];
@@ -101,11 +116,13 @@ namespace ArraySort {
             }
         }
         int k = 0;
+
         for (int i = 0; i < bucketCount; i++) {
             for (int j = 0; j < bucketSizes[i]; j++) {
                 arr[k++] = buckets[i][j];
             }
         }
+
         for (int i = 0; i < bucketCount; i++) {
             delete[] buckets[i];
         }
@@ -119,8 +136,20 @@ namespace ArraySort {
 
     template<typename T>
     void shellSort(Array<T>& arr) {
+        const int size = arr.getSize();
 
+        for (int gap = size / 2; gap > 0; gap /= 2) {
+            for (int i = gap; i < size; i++) {
+                T temp = arr[i];
 
+                int j;
+                for (j = i; j >= gap && arr[j - gap] > temp; j -= gap) {
+                    arr[j] = arr[j - gap];
+                }
+
+                arr[j] = temp;
+            }
+        }
     }
 
 }
