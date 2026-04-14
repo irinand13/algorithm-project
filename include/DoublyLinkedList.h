@@ -102,5 +102,18 @@ class DoublyLinkedList {
     int getSize () {
         return size;
     }
+
+    bool isSorted() {
+        Node* current = head;
+
+        while (current != nullptr && current->next != nullptr) {
+            if (current->data > current->next->data) {
+                return false;
+            }
+            current = current->next;
+        }
+
+        return true;
+    }
 };
 #endif //DOUBLYLINKEDLIST_H

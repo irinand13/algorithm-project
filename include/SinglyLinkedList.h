@@ -140,6 +140,18 @@ public:
         return head;
     }
 
+    bool isSorted() {
+        Node* current = head;
+
+        while (current != nullptr && current->next != nullptr) {
+            if (current->data > current->next->data) {
+                return false;
+            }
+            current = current->next;
+        }
+
+        return true;
+    }
 
 
 };

@@ -98,6 +98,15 @@ public:
     int getSize() {
         return array_size;
     }
+
+    bool isSorted() {
+        for (int i = 0; i < array_size - 1; i++) {
+            if (data[i] > data[i + 1]) {
+                return false;
+            }
+        }
+        return true;
+    }
 };
 
 
