@@ -11,18 +11,6 @@
 #include "Types.h"
 using namespace std;
 namespace SinglyLinkedListSort {
-    template<class T>
-    void bucketSort(SinglyLinkedList<T>& singlyList, int bucketCount) {
-        int size = singlyList.getSize();
-        T max = singlyList.findMax();
-        T min = singlyList.findMin();
-
-        auto* buckets= new SinglyLinkedList<T>[bucketCount];
-
-        for (int i = 0; i < size; i++) {
-            T value = singlyList.get(i);
-        }
-    }
 
     template<class T>
     typename SinglyLinkedList<T>::Node* quickSortRecursive(typename SinglyLinkedList<T>::Node* head, int currentSize, PivotType pivotType) {
@@ -101,6 +89,34 @@ namespace SinglyLinkedListSort {
         if (list.getSize() <= 1) return;
 
         list.head = quickSortRecursive<T>(list.head, list.size, pivotType);
+    }
+
+    template<class T>
+    void bucketSort(SinglyLinkedList<T>& singlyList, int bucketCount) {
+        int size = singlyList.getSize();
+        T max = singlyList.findMax();
+        T min = singlyList.findMin();
+
+        auto* buckets= new SinglyLinkedList<T>[bucketCount];
+
+        typename SinglyLinkedList<T>::Node* current  = singlyList.getHead();
+        while (current != nullptr) {
+            int bucketIndex = ((current->data)-min)*(bucketCount-1)/(max - min);
+            buckets[bucketIndex].push(current->data);
+            current = current->next;
+        }
+
+        singlyList = SinglyLinkedList<T>();
+        for (int i = 0; i < bucketCount; i++) {
+            if (buckets[i].getSize() > 0) {
+                quickSort(buckets[i], PivotType::MIDDLE);
+            }
+            typename SinglyLinkedList<T>::Node* bucketNode= buckets[i].getHead();
+            while (bucketNode != nullptr) {
+                singlyList.push(bucketNode->data);
+                bucketNode = bucketNode->next;
+            }
+        }
     }
 }
 

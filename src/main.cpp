@@ -29,7 +29,7 @@ int main() {
      int max = singlyLinkedList.findMax();
      int min = singlyLinkedList.findMin();
 
-     SinglyLinkedListSort::quickSort(singlyLinkedList,PivotType::MIDDLE);
+     SinglyLinkedListSort::bucketSort(singlyLinkedList, 10);
      singlyLinkedList.read();
      // cout << max << endl;
      // cout << min << endl;
