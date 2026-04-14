@@ -13,7 +13,7 @@ using namespace std;
 namespace SinglyLinkedListSort {
 
     template<class T>
-    typename SinglyLinkedList<T>::Node* quickSortRecursive(typename SinglyLinkedList<T>::Node* head, int currentSize, PivotType pivotType) {
+    typename SinglyLinkedList<T>::Node* quickSortRecursive(typename SinglyLinkedList<T>::Node* head, int currentSize) {
         using Node = typename SinglyLinkedList<T>::Node;
 
         if (!head || !head->next) {
@@ -22,13 +22,31 @@ namespace SinglyLinkedListSort {
 
 
         Node* pivotNode = head;
-        if (pivotType == PivotType::MIDDLE) {
-            for (int i = 0; i < currentSize / 2; i++) pivotNode = pivotNode->next;
-        } else if (pivotType == PivotType::RANDOM) {
-            int r = rand() % currentSize;
-            for (int i = 0; i < r; i++) pivotNode = pivotNode->next;
-        } else if (pivotType == PivotType::EXTREME) {
-            while (pivotNode->next) pivotNode = pivotNode->next;
+        switch (Parameters::pivot) {
+
+            case Parameters::Pivots::middle:
+                for (int i = 0; i < currentSize / 2; i++)
+                    pivotNode = pivotNode->next;
+            break;
+
+            case Parameters::Pivots::random: {
+                int r = rand() % currentSize;
+                for (int i = 0; i < r; i++)
+                    pivotNode = pivotNode->next;
+                break;
+            }
+
+            case Parameters::Pivots::left:
+                pivotNode = head;
+            break;
+
+            case Parameters::Pivots::right:
+                while (pivotNode->next)
+                    pivotNode = pivotNode->next;
+            break;
+
+            default:
+                pivotNode = head;
         }
 
         T pivotValue = pivotNode->data;
@@ -57,8 +75,8 @@ namespace SinglyLinkedListSort {
             current = next;
         }
 
-        lessHead = quickSortRecursive<T>(lessHead, lessSize, pivotType);
-        greaterHead = quickSortRecursive<T>(greaterHead, greaterSize, pivotType);
+        lessHead = quickSortRecursive<T>(lessHead, lessSize);
+        greaterHead = quickSortRecursive<T>(greaterHead, greaterSize);
 
 
         Node* newHead = nullptr;

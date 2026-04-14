@@ -10,4 +10,9 @@ enum class PivotType {
     MIDDLE,
     EXTREME
 };
+
+enum class BucketInnerSort {
+    insertion,
+    quick
+};
 #endif //TYPES_H

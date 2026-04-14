@@ -12,29 +12,30 @@ int main() {
      srand(time(nullptr));
      string fileName = "data.txt";
      Array<int> arr = readToArray<int>(fileName);
-     arr.read();
+     Array<int> test = arr;
+     test.read();
      cout << endl;
-     cout << arr.findMax() << endl;
-     cout << arr.findMin() << endl;
+     cout << test.findMax() << endl;
+     cout << test.findMin() << endl;
      int first = 0;
      int last = arr.getSize() - 1;
-     ArraySort::quickSort(arr,first,last, PivotType::EXTREME);
-     arr.read();
-     ArraySort::bucketSort(arr, 10);
-     arr.read();
+     Parameters::pivot = Parameters::Pivots::random;
+     ArraySort::quickSort(test,first,last);
+     test.read();
 
 
 
-     SinglyLinkedList<int> singlyLinkedList = readToSinlyLinkedList<int>(fileName);
-     singlyLinkedList.read();
-     cout << endl;
-     int max = singlyLinkedList.findMax();
-     int min = singlyLinkedList.findMin();
 
-     SinglyLinkedListSort::bucketSort(singlyLinkedList, 10);
-     singlyLinkedList.read();
-     // cout << max << endl;
-     // cout << min << endl;
+     // SinglyLinkedList<int> singlyLinkedList = readToSinlyLinkedList<int>(fileName);
+     // singlyLinkedList.read();
+     // cout << endl;
+     // int max = singlyLinkedList.findMax();
+     // int min = singlyLinkedList.findMin();
+     //
+     // SinglyLinkedListSort::bucketSort(singlyLinkedList, 10);
+     // singlyLinkedList.read();
+     // // cout << max << endl;
+     // // cout << min << endl;
 
 
 

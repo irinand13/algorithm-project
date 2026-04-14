@@ -4,6 +4,7 @@
 #pragma once
 #include <Array.h>
 #include "Types.h"
+#include "Parameters.h"
 #include <cstdlib>
 #include <ctime>
 
@@ -32,11 +33,13 @@ namespace ArraySort {
     }
 
     template<typename T>
-    void bucketSort(Array<T>& arr, int bucketCount) {
+    void bucketSort(Array<T>& arr, int bucketCount, BucketInnerSort sortType) {
         int size = arr.getSize();
 
         T max = arr.findMax();
         T min = arr.findMin();
+
+        if (max == min) return;
 
         T** buckets = new T*[bucketCount];
         int* bucketSizes = new int[bucketCount];
@@ -54,7 +57,12 @@ namespace ArraySort {
 
         for (int i = 0; i < bucketCount; i++) {
             if (bucketSizes[i] != 0) {
-                insertionSort(buckets[i], bucketSizes[i]);
+                if (sortType == BucketInnerSort::insertion) {
+                    insertionSort(buckets[i], bucketSizes[i]);
+                }
+                else if (sortType == BucketInnerSort::quick) {
+                    quickSortArray(buckets[i], 0, bucketSizes[i] - 1);
+                }
             }
         }
 
@@ -73,23 +81,32 @@ namespace ArraySort {
     }
 
     template<typename T>
-    void quickSort (Array<T>& arr, int first, int last, PivotType pivotType) {
+    void quickSort (Array<T>& arr, int first, int last) {
 
         if (first >= last) return;
 
         int pivotPosition;
         T pivot;
 
-        switch (pivotType) {
-            case PivotType::MIDDLE :
+        switch (Parameters::pivot) {
+            case Parameters::Pivots::middle:
                 pivotPosition = (first + last) / 2;
-                break;
-            case PivotType::RANDOM :
+            break;
+
+            case Parameters::Pivots::random:
                 pivotPosition = rand() % (last - first + 1) + first;
-                break;
-            case PivotType::EXTREME :
+            break;
+
+            case Parameters::Pivots::left:
+                pivotPosition = first;
+            break;
+
+            case Parameters::Pivots::right:
                 pivotPosition = last;
-                break;
+            break;
+
+            default:
+                pivotPosition = last;
         }
         pivot = arr[pivotPosition];
 
@@ -104,8 +121,8 @@ namespace ArraySort {
         }
         swap(arr[i], arr[last]);
 
-        quickSort(arr, first, i - 1, pivotType);
-        quickSort(arr, i + 1, last, pivotType);
+        quickSort(arr, first, i - 1);
+        quickSort(arr, i + 1, last);
     }
 
 
