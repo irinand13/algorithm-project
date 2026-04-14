@@ -6,8 +6,8 @@
 #define SINGLYLISTSORT_H
 #include <cmath>
 #include "SinglyLinkedList.h"
+#include "Parameters.h"
 
-using namespace std;
 namespace SinglyLinkedListSort {
 
     template<class T>
@@ -27,13 +27,13 @@ namespace SinglyLinkedListSort {
             Node* next = current->next;
             current->next = nullptr;
 
-            if ((!sorted || current->data) < sorted->data){
+            if (sorted == nullptr || (current->data) < sorted->data){
                 current->next = sorted;
                 sorted = current;
             }else {
                 Node* temp = sorted;
 
-                while ((temp->next && temp->next->data) < current->data)
+                while (temp->next && (temp->next->data) < current->data)
                 {
                     temp = temp->next;
                 }
@@ -156,9 +156,11 @@ namespace SinglyLinkedListSort {
     template<class T>
     void bucketSort(SinglyLinkedList<T>& singlyList) {
         const int size = singlyList.getSize();
-        const int bucketCount = sqrt(size);
+        const int bucketCount = std::max(1, static_cast<int>(sqrt(size)));
         T max = singlyList.findMax();
         T min = singlyList.findMin();
+
+        if (max == min) return;
 
         auto* buckets= new SinglyLinkedList<T>[bucketCount];
 
@@ -178,6 +180,50 @@ namespace SinglyLinkedListSort {
             while (bucketNode != nullptr) {
                 singlyList.push(bucketNode->data);
                 bucketNode = bucketNode->next;
+            }
+        }
+        delete[] buckets;
+    }
+    template<class T>
+    void shellSort(SinglyLinkedList<T>& list) {
+        using Node = typename SinglyLinkedList<T>::Node;
+
+        const int size = list.getSize();
+        Node* head = list.getHead();
+
+        for (int gap = size / 2; gap > 0; gap /= 2) {
+
+            for (int i = gap; i < size; i++) {
+
+                Node* iNode = head;
+                for (int j = 0; j < i; j++) iNode = iNode->next;
+                T temp = iNode->data;
+
+                int j = i;
+
+                while (j >= gap) {
+
+                    Node* jGapNode = head;
+                    for (int k = 0; k < j - gap; k++)
+                        jGapNode = jGapNode->next;
+
+                    if (jGapNode->data <= temp)
+                        break;
+
+                    Node* jNode = jGapNode;
+                    for (int k = 0; k < gap; k++)
+                        jNode = jNode->next;
+
+                    jNode->data = jGapNode->data;
+
+                    j -= gap;
+                }
+
+                Node* insertNode = head;
+                for (int k = 0; k < j; k++)
+                    insertNode = insertNode->next;
+
+                insertNode->data = temp;
             }
         }
     }
