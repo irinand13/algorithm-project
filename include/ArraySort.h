@@ -20,7 +20,7 @@ namespace ArraySort {
      * @param size rozmiar tablicy
      */
     template<typename T>
-    void insertionSort (T* arr, int size) {
+    void insertionSort (Array<T>& arr, int size) {
         for (int i = 1; i < size; i++) {
             T current = arr[i];
             int otherIndex = i ;
@@ -30,54 +30,6 @@ namespace ArraySort {
             }
             arr[otherIndex] = current;
         }
-    }
-
-    template<typename T>
-    void bucketSort(Array<T>& arr, int bucketCount, BucketInnerSort sortType) {
-        int size = arr.getSize();
-
-        T max = arr.findMax();
-        T min = arr.findMin();
-
-        if (max == min) return;
-
-        T** buckets = new T*[bucketCount];
-        int* bucketSizes = new int[bucketCount];
-
-        for (int i = 0; i < bucketCount; i++) {
-            buckets[i] = new T[size];
-            bucketSizes[i] = 0;
-        }
-
-        for (int i = 0; i < size; i++) {
-            int index = (arr[i] - min) * (bucketCount - 1) / (max - min);
-            buckets[index][bucketSizes[index]] = arr[i];
-            bucketSizes[index]++;
-        }
-
-        for (int i = 0; i < bucketCount; i++) {
-            if (bucketSizes[i] != 0) {
-                if (sortType == BucketInnerSort::insertion) {
-                    insertionSort(buckets[i], bucketSizes[i]);
-                }
-                else if (sortType == BucketInnerSort::quick) {
-                    quickSortArray(buckets[i], 0, bucketSizes[i] - 1);
-                }
-            }
-        }
-
-        int k = 0;
-        for (int i = 0; i < bucketCount; i++) {
-            for (int j = 0; j < bucketSizes[i]; j++) {
-                arr[k++] = buckets[i][j];
-            }
-        }
-
-        for (int i = 0; i < bucketCount; i++) {
-            delete[] buckets[i];
-        }
-        delete[] bucketSizes;
-        delete[] buckets;
     }
 
     template<typename T>
@@ -124,6 +76,63 @@ namespace ArraySort {
         quickSort(arr, first, i - 1);
         quickSort(arr, i + 1, last);
     }
+
+
+    template<typename T>
+    void bucketSort(Array<T>& arr, int bucketCount, BucketInnerSort sortType) {
+        int size = arr.getSize();
+        T max = arr.findMax();
+        T min = arr.findMin();
+
+        auto** buckets = new Array<T>*[bucketCount];
+        int* bucketSizes = new int[bucketCount];
+
+        for (int i = 0; i < bucketCount; i++) {
+            buckets[i] = new Array<T>(size);
+            bucketSizes[i] = 0;
+        }
+
+
+        for (int i = 0; i < size; i++) {
+
+            int index = (bucketCount - 1) * (arr[i] - min) / (max - min);
+
+            if (index < 0) index = 0;
+            if (index >= bucketCount) index = bucketCount - 1;
+
+            int pos = bucketSizes[index];
+            (*buckets[index])[pos] = arr[i];
+            bucketSizes[index]++;
+        }
+
+
+        for (int i = 0; i < bucketCount; i++) {
+
+            if (bucketSizes[i] <= 1) continue;
+
+            if (sortType == BucketInnerSort::insertion) {
+                insertionSort(*buckets[i], bucketSizes[i]);
+            }
+            else if (sortType == BucketInnerSort::quick) {
+                quickSort(*buckets[i], 0, bucketSizes[i] - 1);
+            }
+        }
+
+        int k = 0;
+        for (int i = 0; i < bucketCount; i++) {
+            for (int j = 0; j < bucketSizes[i]; j++) {
+                arr[k++] = (*buckets[i])[j];
+            }
+        }
+
+        for (int i = 0; i < bucketCount; i++) {
+            delete buckets[i];
+        }
+        delete[] buckets;
+        delete[] bucketSizes;
+    }
+
+
 
 
     template<typename T>

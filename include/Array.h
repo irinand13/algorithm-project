@@ -98,8 +98,6 @@ public:
     int getSize() {
         return array_size;
     }
-
-
 };
 
 

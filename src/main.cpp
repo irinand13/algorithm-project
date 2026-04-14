@@ -22,6 +22,10 @@ int main() {
      Parameters::pivot = Parameters::Pivots::random;
      ArraySort::quickSort(test,first,last);
      test.read();
+     ArraySort::bucketSort(test,10,BucketInnerSort::insertion);
+     test.read();
+     ArraySort::insertionSort(test,test.getSize());
+     test.read();
 
 
 
