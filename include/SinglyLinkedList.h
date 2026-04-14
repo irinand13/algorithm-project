@@ -4,7 +4,6 @@
 #ifndef SINGLYLINKEDLIST_H
 #define SINGLYLINKEDLIST_H
 #include <iterator>
-#include <bits/range_access.h>
 using namespace std;
 
 // Dynamiczna lista jednokierunkowa,  która jest inicjalizowana jako szablon

@@ -32,7 +32,7 @@ namespace ArraySort {
     }
 
     template<typename T>
-    void busketSort(Array<T>& arr, int bucketCount) {
+    void bucketSort(Array<T>& arr, int bucketCount) {
         int size = arr.getSize();
 
         T max = arr.findMax();

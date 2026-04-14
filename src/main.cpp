@@ -9,17 +9,19 @@
 using namespace std;
 
 int main() {
-     srand(time(NULL));
+     srand(time(nullptr));
      string fileName = "data.txt";
-     // Array<int> arr = readToArray<int>(fileName);
-     // arr.read();
-     // cout << endl;
-     // cout << arr.findMax() << endl;
-     // cout << arr.findMin() << endl;
-     // int first = 0;
-     // int last = arr.getSize() - 1;
-     // ArraySort::quickSort(arr,first,last, PivotType::EXTREME);
-     // arr.read();
+     Array<int> arr = readToArray<int>(fileName);
+     arr.read();
+     cout << endl;
+     cout << arr.findMax() << endl;
+     cout << arr.findMin() << endl;
+     int first = 0;
+     int last = arr.getSize() - 1;
+     ArraySort::quickSort(arr,first,last, PivotType::EXTREME);
+     arr.read();
+     ArraySort::bucketSort(arr, 10);
+     arr.read();
 
 
 

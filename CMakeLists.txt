@@ -14,6 +14,11 @@ add_executable(projekt_algorytmy
         include/FileReader.h
         include/ArraySort.h
         include/SinglyLinkedListSort.h
+        include/Parameters.h
+        src/Parameters.cpp
 )
 
-target_include_directories(projekt_algorytmy PRIVATE include)
+target_include_directories(projekt_algorytmy PRIVATE include
+        ${PROG_INCLUDE}
+        ${PROG_LIBS}/parameters
+       )
