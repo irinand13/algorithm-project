@@ -13,6 +13,43 @@ using namespace std;
 namespace SinglyLinkedListSort {
 
     template<class T>
+    typename SinglyLinkedList<T>::Node*
+    insertionSort(typename SinglyLinkedList<T>::Node* head)
+    {
+        using Node = typename SinglyLinkedList<T>::Node;
+
+        if (!head || !head->next)
+            return head;
+
+        Node* sorted = nullptr;
+
+        Node* current = head;
+
+        while (current != nullptr){
+            Node* next = current->next;
+            current->next = nullptr;
+
+            if ((!sorted || current->data) < sorted->data){
+                current->next = sorted;
+                sorted = current;
+            }else {
+                Node* temp = sorted;
+
+                while ((temp->next && temp->next->data) < current->data)
+                {
+                    temp = temp->next;
+                }
+
+                current->next = temp->next;
+                temp->next = current;
+            }
+            current = next;
+        }
+
+        return sorted;
+    }
+
+    template<class T>
     typename SinglyLinkedList<T>::Node* quickSortRecursive(typename SinglyLinkedList<T>::Node* head, int currentSize) {
         using Node = typename SinglyLinkedList<T>::Node;
 
