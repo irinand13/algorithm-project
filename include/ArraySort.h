@@ -11,14 +11,7 @@
 #ifndef ARRAYSORT_H
 #define ARRAYSORT_H
 namespace ArraySort {
-    /**
-     * Sortowanie przez wstawianie
-     * Przesuwa element w lewo, dopóki nie napotka się
-     * na element mniejszy lub początek tablicy
-     * @tparam T szablon typu danych
-     * @param arr wskażnik na tablice
-     * @param size rozmiar tablicy
-     */
+
     template<typename T>
     void insertionSort (Array<T>& arr, int size) {
         for (int i = 1; i < size; i++) {
@@ -113,7 +106,7 @@ namespace ArraySort {
             if (sortType == BucketInnerSort::insertion) {
                 insertionSort(*buckets[i], bucketSizes[i]);
             }
-            else if (sortType == BucketInnerSort::quick) {
+            else {
                 quickSort(*buckets[i], 0, bucketSizes[i] - 1);
             }
         }
