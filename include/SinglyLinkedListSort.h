@@ -4,11 +4,9 @@
 
 #ifndef SINGLYLISTSORT_H
 #define SINGLYLISTSORT_H
-#include <list>
-#include <vector>
-
+#include <cmath>
 #include "SinglyLinkedList.h"
-#include "Types.h"
+
 using namespace std;
 namespace SinglyLinkedListSort {
 
@@ -156,8 +154,9 @@ namespace SinglyLinkedListSort {
     }
 
     template<class T>
-    void bucketSort(SinglyLinkedList<T>& singlyList, int bucketCount) {
-        int size = singlyList.getSize();
+    void bucketSort(SinglyLinkedList<T>& singlyList) {
+        const int size = singlyList.getSize();
+        const int bucketCount = sqrt(size);
         T max = singlyList.findMax();
         T min = singlyList.findMin();
 

@@ -7,11 +7,13 @@
 #include "Parameters.h"
 #include <cstdlib>
 #include <ctime>
+#include <cmath>
 
 #ifndef ARRAYSORT_H
 #define ARRAYSORT_H
 namespace ArraySort {
 
+    // metoda sortawania przez wstawianie
     template<typename T>
     void insertionSort (T* arr, int size) {
         for (int i = 1; i < size; i++) {
@@ -72,10 +74,12 @@ namespace ArraySort {
 
 
     template<typename T>
-    void bucketSort(Array<T>& arr, int bucketCount) {
-        int size = arr.getSize();
+    void bucketSort(Array<T>& arr) {
+        const int size = arr.getSize();
+        const int bucketCount = sqrt(size);
         T max = arr.findMax();
         T min = arr.findMin();
+
 
         T** buckets = new T*[bucketCount];
         int* bucketSizes = new int[bucketCount];
@@ -88,7 +92,7 @@ namespace ArraySort {
         for (int i = 0; i < size; i++) {
             int index = (arr[i] - min) * (bucketCount - 1) / (max - min);
             buckets[index][bucketSizes[index]] = arr[i];
-            bucketSizes[index]++;
+            ++bucketSizes[index];
         }
 
         for (int i = 0; i < bucketCount; i++) {
