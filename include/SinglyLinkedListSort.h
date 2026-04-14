@@ -50,6 +50,15 @@ namespace SinglyLinkedListSort {
     }
 
     template<class T>
+    void insertionSort(SinglyLinkedList<T>& list){
+        using Node = typename SinglyLinkedList<T>::Node;
+
+        Node* newHead = insertionSort<T>(list.getHead());
+
+        list.getHead()= newHead;
+    }
+
+    template<class T>
     typename SinglyLinkedList<T>::Node* quickSortRecursive(typename SinglyLinkedList<T>::Node* head, int currentSize) {
         using Node = typename SinglyLinkedList<T>::Node;
 
