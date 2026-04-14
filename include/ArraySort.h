@@ -11,9 +11,16 @@
 #ifndef ARRAYSORT_H
 #define ARRAYSORT_H
 namespace ArraySort {
-
+    /**
+     * Sortowanie przez wstawianie
+     * Przesuwa element w lewo, dopóki nie napotka się
+     * na element mniejszy lub początek tablicy
+     * @tparam T szablon typu danych
+     * @param arr wskażnik na tablice
+     * @param size rozmiar tablicy
+     */
     template<typename T>
-    void insertionSort (Array<T>& arr, int size) {
+    void insertionSort (T* arr, int size) {
         for (int i = 1; i < size; i++) {
             T current = arr[i];
             int otherIndex = i ;
@@ -72,57 +79,42 @@ namespace ArraySort {
 
 
     template<typename T>
-    void bucketSort(Array<T>& arr, int bucketCount, BucketInnerSort sortType) {
+    void bucketSort(Array<T>& arr, int bucketCount) {
         int size = arr.getSize();
         T max = arr.findMax();
         T min = arr.findMin();
 
-        auto** buckets = new Array<T>*[bucketCount];
+        T** buckets = new T*[bucketCount];
         int* bucketSizes = new int[bucketCount];
 
         for (int i = 0; i < bucketCount; i++) {
-            buckets[i] = new Array<T>(size);
+            buckets[i] = new T[size];
             bucketSizes[i] = 0;
         }
 
-
         for (int i = 0; i < size; i++) {
-
-            int index = (bucketCount - 1) * (arr[i] - min) / (max - min);
-
-            if (index < 0) index = 0;
-            if (index >= bucketCount) index = bucketCount - 1;
-
-            int pos = bucketSizes[index];
-            (*buckets[index])[pos] = arr[i];
+            int index = (arr[i] - min) * (bucketCount - 1) / (max - min);
+            buckets[index][bucketSizes[index]] = arr[i];
             bucketSizes[index]++;
         }
 
-
         for (int i = 0; i < bucketCount; i++) {
-
-            if (bucketSizes[i] <= 1) continue;
-
-            if (sortType == BucketInnerSort::insertion) {
-                insertionSort(*buckets[i], bucketSizes[i]);
-            }
-            else {
-                quickSort(*buckets[i], 0, bucketSizes[i] - 1);
+            if (bucketSizes[i] != 0) {
+                insertionSort(buckets[i], bucketSizes[i]);
             }
         }
-
         int k = 0;
         for (int i = 0; i < bucketCount; i++) {
             for (int j = 0; j < bucketSizes[i]; j++) {
-                arr[k++] = (*buckets[i])[j];
+                arr[k++] = buckets[i][j];
             }
         }
-
         for (int i = 0; i < bucketCount; i++) {
-            delete buckets[i];
+            delete[] buckets[i];
         }
-        delete[] buckets;
+
         delete[] bucketSizes;
+        delete[] buckets;
     }
 
 

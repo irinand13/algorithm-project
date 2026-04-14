@@ -4,6 +4,7 @@
 #ifndef SINGLYLINKEDLIST_H
 #define SINGLYLINKEDLIST_H
 #include <iterator>
+
 using namespace std;
 
 // Dynamiczna lista jednokierunkowa,  która jest inicjalizowana jako szablon

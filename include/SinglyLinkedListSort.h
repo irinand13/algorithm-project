@@ -140,10 +140,10 @@ namespace SinglyLinkedListSort {
 
 
     template<class T>
-    void quickSort(SinglyLinkedList<T>& list, PivotType pivotType) {
+    void quickSort(SinglyLinkedList<T>& list) {
         if (list.getSize() <= 1) return;
 
-        list.head = quickSortRecursive<T>(list.head, list.size, pivotType);
+        list.head = quickSortRecursive<T>(list.head, list.size);
     }
 
     template<class T>
@@ -164,7 +164,7 @@ namespace SinglyLinkedListSort {
         singlyList = SinglyLinkedList<T>();
         for (int i = 0; i < bucketCount; i++) {
             if (buckets[i].getSize() > 0) {
-                quickSort(buckets[i], PivotType::MIDDLE);
+                quickSort(buckets[i]);
             }
             typename SinglyLinkedList<T>::Node* bucketNode= buckets[i].getHead();
             while (bucketNode != nullptr) {
