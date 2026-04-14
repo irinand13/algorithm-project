@@ -10,13 +10,13 @@ using namespace std;
 // Dynamiczna lista jednokierunkowa,  która jest inicjalizowana jako szablon
 template<class T>
 class SinglyLinkedList {
-private:
+public:
     struct Node  {
         T data;
         Node *next;
 
         //konstruktor węzła do przechowywania w liście
-        Node(T d) {
+        explicit Node(T d) {
             data = d;
             next = nullptr;
         }
