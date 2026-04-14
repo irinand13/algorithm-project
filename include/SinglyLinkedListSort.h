@@ -184,6 +184,8 @@ namespace SinglyLinkedListSort {
         }
         delete[] buckets;
     }
+
+
     template<class T>
     void shellSort(SinglyLinkedList<T>& list) {
         using Node = typename SinglyLinkedList<T>::Node;

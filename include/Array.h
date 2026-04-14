@@ -51,6 +51,7 @@ public:
         return *this;
     }
 
+    //destruktor tabeli
     ~Array() {
         delete[] data;
     }
@@ -59,7 +60,7 @@ public:
         return data[index];
     }
 
-
+   // wstawianie wartości do tabeli
     void set(int index, const T& value) {
         if (index >= array_size || index < 0) {
             throw std::invalid_argument("Index out of range");
@@ -68,6 +69,7 @@ public:
         }
     }
 
+    // odczytywanie tabeli
     void read() {
         cout<<"Array reading..."<<std::endl;
         for (int i = 0; i < array_size; i++) {
@@ -75,6 +77,7 @@ public:
         }
     }
 
+    //szuka maksymalną wartość w tabeli
     T findMax() {
         T max = data[0];
         for (int i = 1; i < array_size; i++) {
@@ -85,6 +88,8 @@ public:
         return max;
     }
 
+
+    //szuka minimalną wartość w tabeli
     T findMin() {
         T min = data[0];
         for (int i = 1; i < array_size; i++) {
@@ -95,10 +100,12 @@ public:
         return min;
     }
 
+    //zwraca rozmiar tabeli
     int getSize() {
         return array_size;
     }
 
+    // sprawdza czy tabela jest posortowana i zwraca prawdę albo fałsz
     bool isSorted() {
         for (int i = 0; i < array_size - 1; i++) {
             if (data[i] > data[i + 1]) {
@@ -108,7 +115,5 @@ public:
         return true;
     }
 };
-
-
 
 #endif //ARRAY_H

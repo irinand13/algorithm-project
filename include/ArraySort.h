@@ -13,12 +13,15 @@
 #define ARRAYSORT_H
 
 namespace ArraySort {
+
+    // zamiena wartości tabeli miejscami
     template<class T>
     void swap(T& a, T& b) noexcept {
         T temp = a;
         a = b;
         b = temp;
     }
+
     // metoda sortawania przez wstawianie
     template<typename T>
     void insertionSort (T* arr, int size) {
@@ -33,6 +36,7 @@ namespace ArraySort {
         }
     }
 
+    //rekurencja do sortowania szybkiego
     template<typename T>
     void quickSortRecursive(Array<T>& arr, int first, int last) {
         if (first >= last) return;
@@ -40,6 +44,7 @@ namespace ArraySort {
         int pivotPosition;
         T pivot;
 
+        //wybór pivota
         switch (Parameters::pivot) {
             case Parameters::Pivots::middle:
                 pivotPosition = (first + last) / 2;
@@ -64,6 +69,7 @@ namespace ArraySort {
 
         swap(arr[last], arr[pivotPosition]);
 
+        //tworzenie podtablic
         int i = first;
         for (int j = first; j < last; j++) {
             if(arr[j] < pivot) {
@@ -73,19 +79,20 @@ namespace ArraySort {
         }
         swap(arr[i], arr[last]);
 
+        //wywołanie rekurencji dla podtablic podzielonych względem pivota
         quickSortRecursive(arr, first, i - 1);
         quickSortRecursive(arr, i + 1, last);
     }
 
 
+    //sortowanie szybkie
     template<typename T>
     void quickSort (Array<T>& arr) {
         if (arr.getSize() <= 1) return;
         quickSortRecursive(arr, 0, arr.getSize() - 1);
     }
 
-
-
+    // sortowanie kubełkowe
     template<typename T>
     void bucketSort(Array<T>& arr) {
         const int size = arr.getSize();
@@ -96,20 +103,23 @@ namespace ArraySort {
         if (max == min) return;
 
 
-        T** buckets = new T*[bucketCount];
+        T** buckets = new T*[bucketCount]; //tworzenie kubełków
         int* bucketSizes = new int[bucketCount];
 
+        //wypełnienie kubełków
         for (int i = 0; i < bucketCount; i++) {
             buckets[i] = new T[size];
             bucketSizes[i] = 0;
         }
 
+        //przypisywanie wartości do kubłków
         for (int i = 0; i < size; i++) {
             int index = (arr[i] - min) * (bucketCount - 1) / (max - min);
             buckets[index][bucketSizes[index]] = arr[i];
             ++bucketSizes[index];
         }
 
+        //wywołanie sortowania przez wstawianie w kubełkach
         for (int i = 0; i < bucketCount; i++) {
             if (bucketSizes[i] != 0) {
                 insertionSort(buckets[i], bucketSizes[i]);
@@ -128,10 +138,8 @@ namespace ArraySort {
         }
 
         delete[] bucketSizes;
-        delete[] buckets;
+        delete[] buckets; //usuwanie kubełków
     }
-
-
 
 
     template<typename T>
