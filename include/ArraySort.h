@@ -38,13 +38,11 @@ namespace ArraySort {
 
     //rekurencja do sortowania szybkiego
     template<typename T>
-    void quickSortRecursive(Array<T>& arr, int first, int last) {
+void quickSortRecursive(Array<T>& arr, int first, int last) {
         if (first >= last) return;
 
         int pivotPosition;
-        T pivot;
 
-        //wybór pivota
         switch (Parameters::pivot) {
             case Parameters::Pivots::middle:
                 pivotPosition = (first + last) / 2;
@@ -65,21 +63,21 @@ namespace ArraySort {
             default:
                 pivotPosition = last;
         }
-        pivot = arr[pivotPosition];
 
-        swap(arr[last], arr[pivotPosition]);
+        std::swap(arr[pivotPosition], arr[last]);
+        T pivot = arr[last];
 
-        //tworzenie podtablic
         int i = first;
+
         for (int j = first; j < last; j++) {
-            if(arr[j] < pivot) {
-                swap(arr[i], arr[j]);
+            if (arr[j] < pivot) {
+                std::swap(arr[i], arr[j]);
                 i++;
             }
         }
-        swap(arr[i], arr[last]);
 
-        //wywołanie rekurencji dla podtablic podzielonych względem pivota
+        std::swap(arr[i], arr[last]);
+
         quickSortRecursive(arr, first, i - 1);
         quickSortRecursive(arr, i + 1, last);
     }

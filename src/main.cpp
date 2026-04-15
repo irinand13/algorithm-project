@@ -12,52 +12,52 @@ using namespace std;
 int main() {
      srand(time(nullptr));
      string fileName = "data.txt";
-//      Array<int> arr = readToArray<int>(fileName);
-//      Array<int> test = arr;
-//
-//      if (test.isSorted()) {
-//           cout << "sorted" << endl;
-//      }else {
-//           cout << "not sorted" << endl;
-//      }
-//
-//      test.read();
-//      cout << endl;
-//      Parameters::pivot = Parameters::Pivots::random;
-//      ArraySort::shellSort(test);
-//      test.read();
-//      // ArraySort::bucketSort(test);
-//      // test.read();
-//      if (test.isSorted()) {
-//           cout << "sorted" << endl;
-//      }else {
-//           cout << "not sorted" << endl;
-//      }
+      Array<double> arr = readToArray<double>(fileName);
+      Array<double> test = arr;
+
+      if (test.isSorted()) {
+           cout << "sorted" << endl;
+      }else {
+           cout << "not sorted" << endl;
+      }
+
+      test.read();
+      cout << endl;
+      Parameters::pivot = Parameters::Pivots::random;
+      ArraySort::bucketSort(test);
+      test.read();
+      // ArraySort::bucketSort(test);
+      // test.read();
+      if (test.isSorted()) {
+           cout << "sorted" << endl;
+      }else {
+           cout << "not sorted" << endl;
+      }
 
 
 
 
 
-    //  SinglyLinkedList<double> singlyLinkedList = readToSinlyLinkedList<double>(fileName);
-    //  Parameters::pivot = Parameters::Pivots::random;
-    //  SinglyLinkedList<double> test1 = singlyLinkedList;
-    // test1.read();
-    // if (test1.isSorted()) {
-    //     cout << "sorted" << endl;
-    // }else {
-    //     cout << "not sorted" << endl;
-    // }
-    //  // SinglyLinkedListSort::bucketSort(test1);
-    //  // test1.read();
-    //
-    //  SinglyLinkedListSort::bucketSort(test1);
-    //  test1.read();
-    //
-    // if (test1.isSorted()) {
-    //     cout << "sorted" << endl;
-    // }else {
-    //     cout << "not sorted" << endl;
-    // }
+     SinglyLinkedList<double> singlyLinkedList = readToSinlyLinkedList<double>(fileName);
+     SinglyLinkedList<double> test1 = singlyLinkedList;
+    Parameters::pivot = Parameters::Pivots::random;
+    test1.read();
+    if (test1.isSorted()) {
+        cout << "sorted" << endl;
+    }else {
+        cout << "not sorted" << endl;
+    }
+     // SinglyLinkedListSort::bucketSort(test1);
+     // test1.read();
+
+     SinglyLinkedListSort::bucketSort(test1);
+     test1.read();
+
+    if (test1.isSorted()) {
+        cout << "sorted" << endl;
+    }else {
+        cout << "not sorted" << endl;
+    }
 
     DoublyLinkedList<double> doubly_linked = readToDoublyLinkedList<double>(fileName);
     DoublyLinkedList<double> test2 = doubly_linked;
@@ -67,9 +67,10 @@ int main() {
     }else {
         cout << "Not Sorted" << endl;
     }
-
-    DoublyLinkedListSort::insertionSort(test2);
+    Parameters::pivot = Parameters::Pivots::random;
+    DoublyLinkedListSort::bucketSort(test2);
     test2.read();
+
 
     if (test2.isSorted()) {
         cout << "Sorted" << endl;
