@@ -14,7 +14,7 @@
 
 namespace ArraySort {
 
-    // zamiena wartości tabeli miejscami
+    // zamiana dwóch wartości tabeli miejscami
     template<class T>
     void swap(T& a, T& b) noexcept {
         T temp = a;
@@ -92,7 +92,11 @@ namespace ArraySort {
         quickSortRecursive(arr, 0, arr.getSize() - 1);
     }
 
-    // sortowanie kubełkowe
+    //Sortowanie kubełkowe
+    //Tworzy kubełki w których przechowywane są wartości oraz tablicę zawierającą rozmiary kubełków
+    //Robi alokacje pamięci dla kubełków
+    //Na podstawie wzoru rozdziela wartości do odpowiednich kubełków
+    //Sortuje elementy wewnątrz kubełków
     template<typename T>
     void bucketSort(Array<T>& arr) {
         const int size = arr.getSize();
@@ -106,13 +110,13 @@ namespace ArraySort {
         T** buckets = new T*[bucketCount]; //tworzenie kubełków
         int* bucketSizes = new int[bucketCount];
 
-        //wypełnienie kubełków
+        //inicjalizacja kubełków
         for (int i = 0; i < bucketCount; i++) {
             buckets[i] = new T[size];
             bucketSizes[i] = 0;
         }
 
-        //przypisywanie wartości do kubłków
+        //przypisywanie wartości do kubełków na podstawie ich wartości
         for (int i = 0; i < size; i++) {
             int index = (arr[i] - min) * (bucketCount - 1) / (max - min);
             buckets[index][bucketSizes[index]] = arr[i];
@@ -127,6 +131,7 @@ namespace ArraySort {
         }
         int k = 0;
 
+        //składanie posortowanych kubełków
         for (int i = 0; i < bucketCount; i++) {
             for (int j = 0; j < bucketSizes[i]; j++) {
                 arr[k++] = buckets[i][j];
@@ -142,6 +147,9 @@ namespace ArraySort {
     }
 
 
+    //Sortowanie Shella
+    //Porównuje elementy oddalone o konkretny odstęp
+    //Ten odstęp zmiejsza się stopniowo w 2 razy, aż nie będzie 1
     template<typename T>
     void shellSort(Array<T>& arr) {
         const int size = arr.getSize();
