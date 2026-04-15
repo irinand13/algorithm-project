@@ -149,19 +149,74 @@ void quickSortRecursive(Array<T>& arr, int first, int last) {
     //Porównuje elementy oddalone o konkretny odstęp
     //Ten odstęp zmiejsza się stopniowo w 2 razy, aż nie będzie 1
     template<typename T>
-    void shellSort(Array<T>& arr) {
+    void shellSort(Array<T>& arr, Parameters::ShellParameters shellParameter) {
         const int size = arr.getSize();
 
-        for (int gap = size / 2; gap > 0; gap /= 2) {
-            for (int i = gap; i < size; i++) {
-                T temp = arr[i];
 
-                int j;
-                for (j = i; j >= gap && arr[j - gap] > temp; j -= gap) {
-                    arr[j] = arr[j - gap];
+        if(shellParameter == Parameters::ShellParameters::option1) {
+            for (int gap = size / 2; gap > 0; gap /= 2) {
+                for (int i = gap; i < size; i++) {
+                    T temp = arr[i];
+
+                    int j;
+                    for (j = i; j >= gap && arr[j - gap] > temp; j -= gap) {
+                        arr[j] = arr[j - gap];
+                    }
+
+                    arr[j] = temp;
+                }
+            }
+
+        }else if(shellParameter == Parameters::ShellParameters::option2) {
+            int gap = 1;
+
+            while (gap < size / 3) {
+                gap = 3 * gap + 1;
+            }
+
+            while (gap > 0) {
+
+                for (int i = gap; i < size; i++) {
+
+                    T temp = arr[i];
+                    int j;
+
+                    for (j = i; j >= gap && arr[j - gap] > temp; j -= gap) {
+                        arr[j] = arr[j - gap];
+                    }
+
+                    arr[j] = temp;
                 }
 
-                arr[j] = temp;
+                gap /= 3;
+            }
+
+        }else if(shellParameter == Parameters::ShellParameters::option3) {
+            int k = 1;
+
+            while ((1 << k) - 1 < size) {
+                k++;
+            }
+
+            k--;
+
+            while (k > 0) {
+
+                int gap = (1 << k) - 1;
+
+                for (int i = gap; i < size; i++) {
+
+                    T temp = arr[i];
+                    int j;
+
+                    for (j = i; j >= gap && arr[j - gap] > temp; j -= gap) {
+                        arr[j] = arr[j - gap];
+                    }
+
+                    arr[j] = temp;
+                }
+
+                k--;
             }
         }
     }

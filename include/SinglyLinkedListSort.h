@@ -183,45 +183,141 @@ namespace SinglyLinkedListSort {
 
 
     template<class T>
-    void shellSort(SinglyLinkedList<T>& list) {
+    void shellSort(SinglyLinkedList<T>& list, Parameters::ShellParameters shellParameter) {
         using Node = typename SinglyLinkedList<T>::Node;
 
         const int size = list.getSize();
         Node* head = list.getHead();
 
-        for (int gap = size / 2; gap > 0; gap /= 2) {
+        if (shellParameter == Parameters::ShellParameters::option1){
+            for (int gap = size / 2; gap > 0; gap /= 2) {
+                for (int i = gap; i < size; i++) {
 
-            for (int i = gap; i < size; i++) {
+                    Node* iNode = head;
+                    for (int j = 0; j < i; j++) iNode = iNode->next;
+                    T temp = iNode->data;
 
-                Node* iNode = head;
-                for (int j = 0; j < i; j++) iNode = iNode->next;
-                T temp = iNode->data;
+                    int j = i;
 
-                int j = i;
+                    while (j >= gap) {
 
-                while (j >= gap) {
+                        Node* jGapNode = head;
+                        for (int k = 0; k < j - gap; k++)
+                            jGapNode = jGapNode->next;
 
-                    Node* jGapNode = head;
-                    for (int k = 0; k < j - gap; k++)
-                        jGapNode = jGapNode->next;
+                        if (jGapNode->data <= temp)
+                            break;
 
-                    if (jGapNode->data <= temp)
-                        break;
+                        Node* jNode = jGapNode;
+                        for (int k = 0; k < gap; k++)
+                            jNode = jNode->next;
 
-                    Node* jNode = jGapNode;
-                    for (int k = 0; k < gap; k++)
-                        jNode = jNode->next;
+                        jNode->data = jGapNode->data;
 
-                    jNode->data = jGapNode->data;
+                        j -= gap;
+                    }
 
-                    j -= gap;
+                    Node* insertNode = head;
+                    for (int k = 0; k < j; k++)
+                        insertNode = insertNode->next;
+
+                    insertNode->data = temp;
+                }
+            }
+
+        }else if (shellParameter == Parameters::ShellParameters::option2) {
+            int gap = 1;
+
+            while (gap < size / 3)
+                gap = 3 * gap + 1;
+
+            while (gap > 0) {
+
+                for (int i = gap; i < size; i++) {
+
+                    Node* iNode = head;
+                    for (int j = 0; j < i; j++)
+                        iNode = iNode->next;
+
+                    T temp = iNode->data;
+
+                    int j = i;
+
+                    while (j >= gap) {
+
+                        Node* jGapNode = head;
+                        for (int k = 0; k < j - gap; k++)
+                            jGapNode = jGapNode->next;
+
+                        if (jGapNode->data <= temp)
+                            break;
+
+                        Node* jNode = jGapNode;
+                        for (int k = 0; k < gap; k++)
+                            jNode = jNode->next;
+
+                        jNode->data = jGapNode->data;
+
+                        j -= gap;
+                    }
+
+                    Node* insertNode = head;
+                    for (int k = 0; k < j; k++)
+                        insertNode = insertNode->next;
+
+                    insertNode->data = temp;
                 }
 
-                Node* insertNode = head;
-                for (int k = 0; k < j; k++)
-                    insertNode = insertNode->next;
+                gap /= 3;
+            }
+        }else if (shellParameter == Parameters::ShellParameters::option3) {
+            int k = 1;
 
-                insertNode->data = temp;
+            while ((1 << k) - 1 < size)
+                k++;
+
+            k--;
+
+            while (k > 0) {
+
+                int gap = (1 << k) - 1;
+
+                for (int i = gap; i < size; i++) {
+
+                    Node* iNode = head;
+                    for (int j = 0; j < i; j++)
+                        iNode = iNode->next;
+
+                    T temp = iNode->data;
+
+                    int j = i;
+
+                    while (j >= gap) {
+
+                        Node* jGapNode = head;
+                        for (int m = 0; m < j - gap; m++)
+                            jGapNode = jGapNode->next;
+
+                        if (jGapNode->data <= temp)
+                            break;
+
+                        Node* jNode = jGapNode;
+                        for (int m = 0; m < gap; m++)
+                            jNode = jNode->next;
+
+                        jNode->data = jGapNode->data;
+
+                        j -= gap;
+                    }
+
+                    Node* insertNode = head;
+                    for (int m = 0; m < j; m++)
+                        insertNode = insertNode->next;
+
+                    insertNode->data = temp;
+                }
+
+                k--;
             }
         }
     }

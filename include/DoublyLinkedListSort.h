@@ -191,7 +191,7 @@ namespace DoublyLinkedListSort {
             Node* node = buckets[i].getHead();
 
             while (node) {
-                list.push_back(node->data);
+                list.push(node->data);
                 node = node->next;
             }
         }
