@@ -59,10 +59,7 @@ namespace SinglyLinkedListSort {
     typename SinglyLinkedList<T>::Node* quickSortRecursive(typename SinglyLinkedList<T>::Node* head, int currentSize) {
         using Node = typename SinglyLinkedList<T>::Node;
 
-        if (!head || !head->next) {
-            return head;
-        }
-
+        if (!head || !head->next) return head;
 
         Node* pivotNode = head;
         switch (Parameters::pivot) {

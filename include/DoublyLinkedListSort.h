@@ -59,5 +59,40 @@ namespace DoublyLinkedListSort {
     }
 
 
+    template<typename T>
+    typename DoublyLinkedList<T>::Node*
+        quickSortRecursive(typename DoublyLinkedList<T>::Node* head, typename DoublyLinkedList<T>::Node* tail ,int currentSize) {
+        using Node = typename DoublyLinkedList<T>::Node;
+        if (!head || head == tail || currentSize <= 1 ) return head;
+        Node* pivotNode = head;
+        switch (Parameters::pivot) {
+
+            case Parameters::Pivots::middle:
+                for (int i = 0; i < currentSize / 2; i++)
+                    pivotNode = pivotNode->next;
+            break;
+
+            case Parameters::Pivots::random: {
+                int r = rand() % currentSize;
+                for (int i = 0; i < r; i++)
+                    pivotNode = pivotNode->next;
+                break;
+            }
+
+            case Parameters::Pivots::left:
+                pivotNode = head;
+            break;
+
+            case Parameters::Pivots::right:
+                pivotNode = tail;
+            break;
+
+            default:
+                pivotNode = head;
+        }
+        T pivotValue = pivotNode->data;
+
+        return ;
+    }
 }
 #endif //DOUBLYLINKEDLISTSORT_H
