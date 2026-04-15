@@ -4,6 +4,7 @@
 #include "FileReader.h"
 #include "SinglyLinkedList.h"
 #include "SinglyLinkedListSort.h"
+#include <string>
 #include "ArraySort.h"
 #include "DoublyLinkedListSort.h"
 
@@ -38,7 +39,7 @@ int main() {
 
 
 
-     SinglyLinkedList<string> singlyLinkedList = readToSinlyLinkedList<string>(fileName);
+     SinglyLinkedList<string> singlyLinkedList = FileReader::readToSinglyLinkedList<string>(fileName);
      SinglyLinkedList<string> test1 = singlyLinkedList;
     Parameters::pivot = Parameters::Pivots::random;
     test1.read();

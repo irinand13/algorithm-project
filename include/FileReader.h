@@ -11,72 +11,73 @@ using namespace std;
 
 #ifndef FILEREADER_H
 #define FILEREADER_H
+class FileReader {
+    public:
+    //Odczytuje wartości z pliku, tworzy tablicę oraz dodaje
+    //do niej odczytane wartości
+    template <typename T>
+    static Array <T> readToArray (const string& fileName) {
+        fstream file(fileName);
+        int size;
+        T t;
 
-//Odczytuje wartości z pliku, tworzy tablicę oraz dodaje
-//do niej odczytane wartości
-template <typename T>
-Array <T> readToArray (const string& fileName) {
-    fstream file(fileName);
-    int size;
-    T t;
+        if(!file.is_open()) {
+            cerr << "Error opening file " << fileName << endl;
+            return Array<T>(0);
+        }else {
+            file>>size;
 
-    if(!file.is_open()) {
-        cerr << "Error opening file " << fileName << endl;
-        return Array<T>(0);
-    }else {
-        file>>size;
-
-        Array <T> array(size);
-        for (int i = 0; i < size; i++) {
-            file>>t;
-            array.set(i,t);
+            Array <T> array(size);
+            for (int i = 0; i < size; i++) {
+                file>>t;
+                array.set(i,t);
+            }
+            return array;
         }
-        return array;
     }
-}
 
-//Odczytuje wartości z pliku, tworzy listę jednokierunkową oraz dodaje
-//do niej odczytane wartości
-template <typename T>
-SinglyLinkedList<T> readToSinlyLinkedList (const string& fileName) {
-    fstream file(fileName);
-    int size;
-    T t;
+    //Odczytuje wartości z pliku, tworzy listę jednokierunkową oraz dodaje
+    //do niej odczytane wartości
+    template <typename T>
+    static SinglyLinkedList<T> readToSinglyLinkedList (const string& fileName) {
+        fstream file(fileName);
+        int size;
+        T t;
 
-    if(!file.is_open()) {
-        cerr << "Error opening file " << fileName << endl;
-        return SinglyLinkedList<T>();
-    }else {
-        file>>size;
-        SinglyLinkedList<T> list{};
-        for (int i = 0; i < size; i++) {
-            file>>t;
-            list.push(t);
+        if(!file.is_open()) {
+            cerr << "Error opening file " << fileName << endl;
+            return SinglyLinkedList<T>();
+        }else {
+            file>>size;
+            SinglyLinkedList<T> list{};
+            for (int i = 0; i < size; i++) {
+                file>>t;
+                list.push(t);
+            }
+            return list;
         }
-        return list;
     }
-}
 
-//Odczytuje wartości z pliku, tworzy listę dwukierunkową oraz dodaje
-//do niej odczytane wartości
-template <typename T>
-DoublyLinkedList<T> readToDoublyLinkedList (const string& fileName) {
-    fstream file(fileName);
-    int size;
-    T t;
+    //Odczytuje wartości z pliku, tworzy listę dwukierunkową oraz dodaje
+    //do niej odczytane wartości
+    template <typename T>
+    static DoublyLinkedList<T> readToDoublyLinkedList (const string& fileName) {
+        fstream file(fileName);
+        int size;
+        T t;
 
-    if(!file.is_open()) {
-        cerr << "Error opening file " << fileName << endl;
-        return DoublyLinkedList<T>();
-    }else {
-        file>>size;
-        DoublyLinkedList<T> list{};
-        for (int i = 0; i < size; i++) {
-            file>>t;
-            list.push_back(t);
+        if(!file.is_open()) {
+            cerr << "Error opening file " << fileName << endl;
+            return DoublyLinkedList<T>();
+        }else {
+            file>>size;
+            DoublyLinkedList<T> list{};
+            for (int i = 0; i < size; i++) {
+                file>>t;
+                list.push_back(t);
+            }
+            return list;
         }
-        return list;
     }
-}
-
+};
 #endif //FILEREADER_H
