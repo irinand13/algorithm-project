@@ -152,7 +152,6 @@ void quickSortRecursive(Array<T>& arr, int first, int last) {
     void shellSort(Array<T>& arr, Parameters::ShellParameters shellParameter) {
         const int size = arr.getSize();
 
-
         if(shellParameter == Parameters::ShellParameters::option1) {
             for (int gap = size / 2; gap > 0; gap /= 2) {
                 for (int i = gap; i < size; i++) {
@@ -191,33 +190,6 @@ void quickSortRecursive(Array<T>& arr, int first, int last) {
                 gap /= 3;
             }
 
-        }else if(shellParameter == Parameters::ShellParameters::option3) {
-            int k = 1;
-
-            while ((1 << k) - 1 < size) {
-                k++;
-            }
-
-            k--;
-
-            while (k > 0) {
-
-                int gap = (1 << k) - 1;
-
-                for (int i = gap; i < size; i++) {
-
-                    T temp = arr[i];
-                    int j;
-
-                    for (j = i; j >= gap && arr[j - gap] > temp; j -= gap) {
-                        arr[j] = arr[j - gap];
-                    }
-
-                    arr[j] = temp;
-                }
-
-                k--;
-            }
         }
     }
 

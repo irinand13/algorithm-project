@@ -38,8 +38,8 @@ int main() {
 
 
 
-     SinglyLinkedList<double> singlyLinkedList = readToSinlyLinkedList<double>(fileName);
-     SinglyLinkedList<double> test1 = singlyLinkedList;
+     SinglyLinkedList<string> singlyLinkedList = readToSinlyLinkedList<string>(fileName);
+     SinglyLinkedList<string> test1 = singlyLinkedList;
     Parameters::pivot = Parameters::Pivots::random;
     test1.read();
     if (test1.isSorted()) {
@@ -50,7 +50,7 @@ int main() {
      // SinglyLinkedListSort::bucketSort(test1);
      // test1.read();
 
-     Parameters::shellParameter = Parameters::ShellParameters::option3;
+     Parameters::shellParameter = Parameters::ShellParameters::option2;
      SinglyLinkedListSort::shellSort(test1, Parameters::shellParameter);
      test1.read();
 
@@ -60,16 +60,16 @@ int main() {
         cout << "not sorted" << endl;
     }
 
-    // DoublyLinkedList<double> doubly_linked = readToDoublyLinkedList<double>(fileName);
-    // DoublyLinkedList<double> test2 = doubly_linked;
+    // DoublyLinkedList<string> doubly_linked = readToDoublyLinkedList<string>(fileName);
+    // DoublyLinkedList<string> test2 = doubly_linked;
     // test2.read();
     // if (test2.isSorted()) {
     //     cout << "Sorted" << endl;
     // }else {
     //     cout << "Not Sorted" << endl;
     // }
-    // Parameters::pivot = Parameters::Pivots::random;
-    // DoublyLinkedListSort::bucketSort(test2);
+    // Parameters::shellParameter = Parameters::ShellParameters::option1;
+    // DoublyLinkedListSort::quickSort(test2);
     // test2.read();
     //
     //

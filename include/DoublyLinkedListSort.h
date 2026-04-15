@@ -159,7 +159,7 @@ namespace DoublyLinkedListSort {
     }
 
     template<class T>
-   void bucketSort(DoublyLinkedList<T>& list) {
+    void bucketSort(DoublyLinkedList<T>& list) {
 
         const int size = list.getSize();
         const int bucketCount = std::max(1, (int)sqrt(size));
@@ -198,5 +198,83 @@ namespace DoublyLinkedListSort {
 
         delete[] buckets;
     }
+
+    template<class T>
+    void shellSort(DoublyLinkedList<T>& list, Parameters::ShellParameters shellParameter) {
+        using Node = typename DoublyLinkedList<T>::Node;
+
+        const int size = list.getSize();
+        Node* head = list.getHead();
+
+        auto getNode = [&](int index) -> Node* {
+        Node* curr = head;
+
+        for (int i = 0; i < index; i++) curr = curr->next;
+
+        return curr;
+        };
+
+        if (shellParameter == Parameters::ShellParameters::option1) {
+
+
+            for (int gap = size / 2; gap > 0; gap /= 2) {
+                for (int i = gap; i < size; i++) {
+
+                    Node* iNode = getNode(i);
+                    T temp = iNode->data;
+
+                    Node* jNode = iNode;
+
+                    while (jNode != nullptr) {
+
+                        Node* jGapNode = jNode;
+
+                        for (int k = 0; k < gap && jGapNode; k++) jGapNode = jGapNode->prev;
+
+                        if (!jGapNode || jGapNode->data <= temp) break;
+
+                        jNode->data = jGapNode->data;
+                        jNode = jGapNode;
+                    }
+
+                    if (jNode) jNode->data = temp;
+                }
+            }
+
+        } else if (shellParameter == Parameters::ShellParameters::option2) {
+
+            int gap = 1;
+            while (gap < size / 3) gap = 3 * gap + 1;
+
+            while (gap > 0) {
+
+                for (int i = gap; i < size; i++) {
+
+                    Node* iNode = getNode(i);
+                    T temp = iNode->data;
+
+                    Node* jNode = iNode;
+
+                    while (jNode) {
+
+                        Node* jGapNode = jNode;
+
+                        for (int k = 0; k < gap && jGapNode; k++) jGapNode = jGapNode->prev;
+
+                        if (!jGapNode || jGapNode->data <= temp) break;
+
+
+                        jNode->data = jGapNode->data;
+                        jNode = jGapNode;
+                    }
+
+                    if (jNode) jNode->data = temp;
+                }
+
+                gap /= 3;
+            }
+        }
+    }
+
 }
 #endif //DOUBLYLINKEDLISTSORT_H

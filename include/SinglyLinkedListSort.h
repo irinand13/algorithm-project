@@ -270,55 +270,6 @@ namespace SinglyLinkedListSort {
 
                 gap /= 3;
             }
-        }else if (shellParameter == Parameters::ShellParameters::option3) {
-            int k = 1;
-
-            while ((1 << k) - 1 < size)
-                k++;
-
-            k--;
-
-            while (k > 0) {
-
-                int gap = (1 << k) - 1;
-
-                for (int i = gap; i < size; i++) {
-
-                    Node* iNode = head;
-                    for (int j = 0; j < i; j++)
-                        iNode = iNode->next;
-
-                    T temp = iNode->data;
-
-                    int j = i;
-
-                    while (j >= gap) {
-
-                        Node* jGapNode = head;
-                        for (int m = 0; m < j - gap; m++)
-                            jGapNode = jGapNode->next;
-
-                        if (jGapNode->data <= temp)
-                            break;
-
-                        Node* jNode = jGapNode;
-                        for (int m = 0; m < gap; m++)
-                            jNode = jNode->next;
-
-                        jNode->data = jGapNode->data;
-
-                        j -= gap;
-                    }
-
-                    Node* insertNode = head;
-                    for (int m = 0; m < j; m++)
-                        insertNode = insertNode->next;
-
-                    insertNode->data = temp;
-                }
-
-                k--;
-            }
         }
     }
 }
