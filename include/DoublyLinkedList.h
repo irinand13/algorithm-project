@@ -58,21 +58,25 @@ class DoublyLinkedList {
     }
 
     DoublyLinkedList& operator=(const DoublyLinkedList &other) {
-        if (this != &other) return *this;
-        Node *current = other.head;
+        if (this == &other) return *this;
+
+        Node* current = head;
         while (current != nullptr) {
-            Node *next = current->next;
+            Node* next = current->next;
             delete current;
             current = next;
         }
+
         head = nullptr;
         tail = nullptr;
         size = 0;
+
         Node* temp = other.head;
         while (temp != nullptr) {
-            push_back(temp->data);
+            push(temp->data);
             temp = temp->next;
         }
+
         return *this;
     }
 
@@ -130,6 +134,50 @@ class DoublyLinkedList {
         }
 
         return true;
+    }
+    T findMin() {
+        if (head == nullptr) {
+            cout << "The list is empty" << endl;
+            return T();
+        }
+        T min = head->data;
+        Node *current = head->next;
+        while (current != nullptr) {
+            if ((current->data) < min) {
+                min = current->data;
+            }
+            current = current->next;
+        }
+        return min;
+    }
+
+    T findMax() {
+        if (head == nullptr) {
+            cout << "The list is empty" << endl;
+            return T();
+        }
+        T max = head->data;
+        Node *current = head->next;
+        while (current != nullptr) {
+            if (current->data> max) {
+                max = current->data;
+            }
+            current = current->next;
+        }
+        return max;
+    }
+
+    void push(T d) {
+        Node* newNode = new Node(d);
+
+        if (!head) {
+            head = tail = newNode;
+        } else {
+            tail->next = newNode;
+            tail = newNode;
+        }
+
+        size++;
     }
 };
 #endif //DOUBLYLINKEDLIST_H

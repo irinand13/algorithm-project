@@ -170,7 +170,7 @@ namespace SinglyLinkedListSort {
         singlyList = SinglyLinkedList<T>();
         for (int i = 0; i < bucketCount; i++) {
             if (buckets[i].getSize() > 0) {
-                quickSort(buckets[i]);
+                insertionSort(buckets[i]);
             }
             typename SinglyLinkedList<T>::Node* bucketNode= buckets[i].getHead();
             while (bucketNode != nullptr) {

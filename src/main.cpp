@@ -36,8 +36,8 @@ int main() {
 
 
 
-    //
-    //
+
+
     //  SinglyLinkedList<double> singlyLinkedList = readToSinlyLinkedList<double>(fileName);
     //  Parameters::pivot = Parameters::Pivots::random;
     //  SinglyLinkedList<double> test1 = singlyLinkedList;
@@ -50,7 +50,7 @@ int main() {
     //  // SinglyLinkedListSort::bucketSort(test1);
     //  // test1.read();
     //
-    //  SinglyLinkedListSort::shellSort(test1);
+    //  SinglyLinkedListSort::bucketSort(test1);
     //  test1.read();
     //
     // if (test1.isSorted()) {
@@ -68,7 +68,7 @@ int main() {
         cout << "Not Sorted" << endl;
     }
 
-    DoublyLinkedListSort::quickSort(test2);
+    DoublyLinkedListSort::bucketSort(test2);
     test2.read();
 
     if (test2.isSorted()) {

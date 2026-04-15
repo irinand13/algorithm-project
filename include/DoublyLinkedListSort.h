@@ -171,5 +171,46 @@ namespace DoublyLinkedListSort {
 
         list.head = quickSortRecursive<T>(list.head, list.tail, list.size);
     }
+
+    template<class T>
+   void bucketSort(DoublyLinkedList<T>& list) {
+
+        const int size = list.getSize();
+        const int bucketCount = std::max(1, (int)sqrt(size));
+
+        T max = list.findMax();
+        T min = list.findMin();
+
+        if (max == min) return;
+
+        auto* buckets = new DoublyLinkedList<T>[bucketCount];
+
+        using Node = typename DoublyLinkedList<T>::Node;
+
+        Node* current = list.getHead();
+
+        while (current) {
+            int index = (current->data - min) * (bucketCount - 1) / (max - min);
+            buckets[index].push_back(current->data);
+            current = current->next;
+        }
+
+        list.clear();
+
+        for (int i = 0; i < bucketCount; i++) {
+
+            if (buckets[i].getSize() > 0)
+                insertionSort(buckets[i]);
+
+            Node* node = buckets[i].getHead();
+
+            while (node) {
+                list.push_back(node->data);
+                node = node->next;
+            }
+        }
+
+        delete[] buckets;
+    }
 }
 #endif //DOUBLYLINKEDLISTSORT_H
