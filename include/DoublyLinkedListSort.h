@@ -92,7 +92,84 @@ namespace DoublyLinkedListSort {
         }
         T pivotValue = pivotNode->data;
 
-        return ;
+
+        Node *lessHead = nullptr, *equalHead = nullptr, *greaterHead = nullptr;
+        Node *lessTail = nullptr, *equalTail = nullptr, *greaterTail = nullptr;
+        int lessSize = 0, greaterSize = 0;
+
+        Node* current = head;
+        while (current != nullptr) {
+            Node* next = current->next;
+            current->next = current->prev = nullptr;
+
+
+            if((current->data) < pivotValue) {
+                if (!lessHead) lessHead = lessTail = current;
+                else {
+                    lessTail->next = current;
+                    current->prev = lessTail;
+                    lessTail = current;
+                }
+                lessSize++;
+            }else if (current->data > pivotValue) {
+                if (!greaterHead) greaterHead = greaterTail = current;
+                else {
+                    greaterTail->next = current;
+                    current->prev = greaterTail;
+                    greaterTail = current;
+                }
+                greaterSize++;
+            }else {
+                if (!equalHead) {
+                    equalHead = equalTail = current;
+                } else {
+                    equalTail->next = current;
+                    current->prev = equalTail;
+                    equalTail = current;
+                }
+            }
+
+            current = next;
+        }
+
+
+        auto getTail = [](Node* n) -> Node* {
+            if (!n) return nullptr;
+            while (n->next) n = n->next;
+            return n;
+        };
+
+        lessHead = quickSortRecursive<T>(lessHead, getTail(lessHead), lessSize);
+        greaterHead = quickSortRecursive<T>(greaterHead, getTail(greaterHead), greaterSize);
+
+        Node* newHead = nullptr;
+        Node* newTail = nullptr;
+
+        auto append = [&](Node* h, Node* t) {
+            if (!h) return;
+
+            if (!newHead) {
+                newHead = h;
+                newTail = t;
+            } else {
+                newTail->next = h;
+                h->prev = newTail;
+                newTail = t;
+            }
+        };
+
+
+        append(lessHead, getTail(lessHead));
+        append(equalHead, getTail(equalHead));
+        append(greaterHead, getTail(greaterHead));
+        return newHead;
+    }
+
+    template<typename T>
+    void quickSort(DoublyLinkedList<T>& list) {
+        if (list.getSize() <= 1) return;
+
+        list.head = quickSortRecursive<T>(list.head, list.tail, list.size);
     }
 }
 #endif //DOUBLYLINKEDLISTSORT_H
