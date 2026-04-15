@@ -8,7 +8,8 @@ namespace DoublyLinkedListSort {
 
     template<class T>
     typename DoublyLinkedList<T>::Node*
-    insertionSort(typename DoublyLinkedList<T>::Node* head) {
+    insertionSort(typename DoublyLinkedList<T>::Node* head)
+    {
         using Node = typename DoublyLinkedList<T>::Node;
 
         if (!head || !head->next)
@@ -20,42 +21,35 @@ namespace DoublyLinkedListSort {
         while (current != nullptr) {
             Node* next = current->next;
 
-            if (sorted == nullptr || current->data <= sorted->data) {
+            current->prev = current->next = nullptr;
+
+            if (!sorted || current->data <= sorted->data) {
                 current->next = sorted;
-                if (sorted != nullptr) sorted->prev = current;
+                if (sorted) sorted->prev = current;
                 sorted = current;
-                sorted->prev = nullptr;
-            }else {
+            } else {
                 Node* temp = sorted;
 
-                while (temp->next && (temp->next->data) < current->data) {
+                while (temp->next && temp->next->data < current->data)
                     temp = temp->next;
-                }
-                current->next = temp->next;
 
-                if (temp->next != nullptr) temp->next->prev = current;
+                current->next = temp->next;
+                if (temp->next)
+                    temp->next->prev = current;
 
                 temp->next = current;
                 current->prev = temp;
             }
+
             current = next;
         }
 
         return sorted;
     }
 
-    template<typename T>
+    template<class T>
     void insertionSort(DoublyLinkedList<T>& list) {
-        using Node = typename DoublyLinkedList<T>::Node;
-
-        Node* newHead = insertionSort<T>(list.getHead());
-        list.setHead(newHead);
-
-        Node* newTail = newHead;
-        if (newTail) {
-            while (newTail->next) newTail = newTail->next;
-        }
-        list.setTail(newTail);
+        list.head = insertionSort<T>(list.head);
     }
 
 
