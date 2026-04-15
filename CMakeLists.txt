@@ -15,6 +15,7 @@ add_executable(projekt_algorytmy
         include/ArraySort.h
         include/SinglyLinkedListSort.h
         lib/Parameters.cpp
+        include/DoublyLinkedListSort.h
 )
 
 target_include_directories(projekt_algorytmy PRIVATE

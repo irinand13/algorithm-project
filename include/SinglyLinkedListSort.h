@@ -27,14 +27,13 @@ namespace SinglyLinkedListSort {
             Node* next = current->next;
             current->next = nullptr;
 
-            if (sorted == nullptr || (current->data) < sorted->data){
+            if (sorted == nullptr || current->data <= sorted->data){
                 current->next = sorted;
                 sorted = current;
             }else {
                 Node* temp = sorted;
 
-                while (temp->next && (temp->next->data) < current->data)
-                {
+                while (temp->next && (temp->next->data) < current->data){
                     temp = temp->next;
                 }
 
