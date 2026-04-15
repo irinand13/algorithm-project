@@ -5,6 +5,7 @@
 #include "SinglyLinkedList.h"
 #include "SinglyLinkedListSort.h"
 #include "ArraySort.h"
+#include "DoublyLinkedListSort.h"
 
 using namespace std;
 
@@ -35,33 +36,46 @@ int main() {
 
 
 
+    //
+    //
+    //  SinglyLinkedList<double> singlyLinkedList = readToSinlyLinkedList<double>(fileName);
+    //  Parameters::pivot = Parameters::Pivots::random;
+    //  SinglyLinkedList<double> test1 = singlyLinkedList;
+    // test1.read();
+    // if (test1.isSorted()) {
+    //     cout << "sorted" << endl;
+    // }else {
+    //     cout << "not sorted" << endl;
+    // }
+    //  // SinglyLinkedListSort::bucketSort(test1);
+    //  // test1.read();
+    //
+    //  SinglyLinkedListSort::shellSort(test1);
+    //  test1.read();
+    //
+    // if (test1.isSorted()) {
+    //     cout << "sorted" << endl;
+    // }else {
+    //     cout << "not sorted" << endl;
+    // }
 
-
-     SinglyLinkedList<double> singlyLinkedList = readToSinlyLinkedList<double>(fileName);
-
-
-
-     Parameters::pivot = Parameters::Pivots::random;
-     SinglyLinkedList<double> test1 = singlyLinkedList;
-    test1.read();
-    if (test1.isSorted()) {
-        cout << "sorted" << endl;
+    DoublyLinkedList<double> doubly_linked = readToDoublyLinkedList<double>(fileName);
+    DoublyLinkedList<double> test2 = doubly_linked;
+    test2.read();
+    if (test2.isSorted()) {
+        cout << "Sorted" << endl;
     }else {
-        cout << "not sorted" << endl;
+        cout << "Not Sorted" << endl;
     }
-     // SinglyLinkedListSort::bucketSort(test1);
-     // test1.read();
 
-     SinglyLinkedListSort::shellSort(test1);
-     test1.read();
+    DoublyLinkedListSort::insertionSort(test2);
+    test2.read();
 
-    if (test1.isSorted()) {
-        cout << "sorted" << endl;
+    if (test2.isSorted()) {
+        cout << "Sorted" << endl;
     }else {
-        cout << "not sorted" << endl;
+        cout << "Not Sorted" << endl;
     }
-
-
 
 
 

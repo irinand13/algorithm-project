@@ -9,7 +9,7 @@
 
 template<class T>
 class DoublyLinkedList {
-    private:
+    public:
     struct Node {
         T data;
         Node* next;
@@ -24,12 +24,12 @@ class DoublyLinkedList {
     Node* head;
     Node* tail;
     int size;
-    public:
 
     //konstruktor
     DoublyLinkedList() {
         head = nullptr;
         tail = nullptr;
+        size = 0;
     };
 
     //destruktor
@@ -101,6 +101,22 @@ class DoublyLinkedList {
 
     int getSize () {
         return size;
+    }
+
+    Node* getHead() {
+        return head;
+    }
+
+    Node* getTail() {
+        return tail;
+    }
+
+    void setHead(Node* newHead) {
+        head = newHead;
+    }
+
+    void setTail(Node* newTail) {
+        tail = newTail;
     }
 
     bool isSorted() {

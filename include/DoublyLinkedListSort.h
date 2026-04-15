@@ -49,7 +49,13 @@ namespace DoublyLinkedListSort {
         using Node = typename DoublyLinkedList<T>::Node;
 
         Node* newHead = insertionSort<T>(list.getHead());
-        list.getHead()= newHead;
+        list.setHead(newHead);
+
+        Node* newTail = newHead;
+        if (newTail) {
+            while (newTail->next) newTail = newTail->next;
+        }
+        list.setTail(newTail);
     }
 
 

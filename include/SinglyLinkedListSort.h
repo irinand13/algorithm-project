@@ -52,7 +52,7 @@ namespace SinglyLinkedListSort {
 
         Node* newHead = insertionSort<T>(list.getHead());
 
-        list.getHead()= newHead;
+        list.setHead(newHead);
     }
 
     template<class T>

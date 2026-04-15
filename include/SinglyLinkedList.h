@@ -140,6 +140,10 @@ public:
         return head;
     }
 
+    void setHead(Node* newHead) {
+        head = newHead;
+    }
+
     bool isSorted() {
         Node* current = head;
 
