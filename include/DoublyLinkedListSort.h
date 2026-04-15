@@ -30,7 +30,7 @@ namespace DoublyLinkedListSort {
             } else {
                 Node* temp = sorted;
 
-                while (temp->next && temp->next->data < current->data)
+                while (temp->next && (temp->next->data) < current->data)
                     temp = temp->next;
 
                 current->next = temp->next;
