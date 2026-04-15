@@ -179,5 +179,19 @@ class DoublyLinkedList {
 
         size++;
     }
+
+    void clear() {
+        Node* current = head;
+
+        while (current) {
+            Node* next = current->next;
+            delete current;
+            current = next;
+        }
+
+        head = nullptr;
+        tail = nullptr;
+        size = 0;
+    }
 };
 #endif //DOUBLYLINKEDLIST_H

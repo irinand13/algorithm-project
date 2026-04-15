@@ -68,7 +68,7 @@ int main() {
         cout << "Not Sorted" << endl;
     }
 
-    DoublyLinkedListSort::bucketSort(test2);
+    DoublyLinkedListSort::insertionSort(test2);
     test2.read();
 
     if (test2.isSorted()) {
