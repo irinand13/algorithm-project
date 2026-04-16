@@ -9,9 +9,12 @@
 #include "SinglyLinkedList.h"
 #include "DoublyLinkedList.h"
 #include "ArraySort.h"
+#include "DataGenerator.h"
 #include "SinglyLinkedListSort.h"
 #include "DoublyLinkedListSort.h"
 #include "FileReader.h"
+#include <chrono>
+#include <climits>
 
 #ifndef APPLICATION_H
 #define APPLICATION_H
@@ -30,7 +33,7 @@ class Application {
             case Parameters::DataTypes::typeString: startWithTemplate<std::string>(); break;
             case Parameters::DataTypes::typeFloat: startWithTemplate<float>(); break;
             case Parameters::DataTypes::typeChar: startWithTemplate<char>(); break;
-            case Parameters::DataTypes::tyleUnsignedInt: startWithTemplate<unsigned>(); break;
+            case Parameters::DataTypes::typeUnsignedInt: startWithTemplate<unsigned>(); break;
             default: std::cerr << "Error: Unsupported data type!"<<std::endl;
         }
 
@@ -87,7 +90,9 @@ private:
 
         switch (Parameters::structure) {
             case Parameters::Structures::array: runBenchmarkArray<T>(size, iterations); break;
-            default: ;
+            case Parameters::Structures::singleList: runBenchmarkSinglyLinkedList<T>(size, iterations); break;
+            case Parameters::Structures::doubleList: runBenchmarkDoublyLinkedList<T>(size, iterations); break;
+            default: std::cerr << "Error: Unsupported structure!"<<std::endl;
         }
     }
 
@@ -97,9 +102,75 @@ private:
         long long minTime = LLONG_MAX;
         long long maxTime = 0;
 
+        Array<T> array = DataGenerator::generateArray<T>(size);
         for (int i = 0; i < iterations; i++) {
+            Array<T> copy = array;
+
+            auto start = std::chrono::high_resolution_clock::now();
+
+            sortArray(array);
+
+            auto end = std::chrono::high_resolution_clock::now();
+            auto duration =
+                std::chrono::duration_cast<std::chrono::microseconds>(end - start).count();
+
+            sum += duration;
+
+            if(duration < minTime) minTime = duration;
+            else if(duration > maxTime) maxTime = duration;
+        }
+    }
+
+    template <typename T>
+    void runBenchmarkSinglyLinkedList(int size, int iterations) {
+        long long sum = 0;
+        long long minTime = LLONG_MAX;
+        long long maxTime = 0;
+
+        SinglyLinkedList<T> singlyList = DataGenerator::generateSinglyLinkedList<T>(size);
+
+        for (int i = 0; i < iterations; i++) {
+            SinglyLinkedList<T> copy = singlyList;
+
+            auto start = std::chrono::high_resolution_clock::now();
+
+            sortSinglyLinkedList(singlyList);
+
+            auto end = std::chrono::high_resolution_clock::now();
+            auto duration =
+                std::chrono::duration_cast<std::chrono::microseconds>(end - start).count();
+
+            sum += duration;
+
+            if(duration < minTime) minTime = duration;
+            else if(duration > maxTime) maxTime = duration;
         }
 
+    }
+
+    template <typename T>
+    void runBenchmarkDoublyLinkedList(int size, int iterations) {
+        long long sum = 0;
+        long long minTime = LLONG_MAX;
+        long long maxTime = 0;
+
+        DoublyLinkedList<T> doublyList = DataGenerator::generateDoublyLinkedList<T>(size);
+        for (int i = 0; i < iterations; i++) {
+            DoublyLinkedList<T> copy = doublyList;
+
+            auto start = std::chrono::high_resolution_clock::now();
+
+            sortDoublyLinkedList(doublyList);
+
+            auto end = std::chrono::high_resolution_clock::now();
+            auto duration =
+                std::chrono::duration_cast<std::chrono::microseconds>(end - start).count();
+
+            sum += duration;
+
+            if(duration < minTime) minTime = duration;
+            else if(duration > maxTime) maxTime = duration;
+        }
     }
 
     template <typename T>
