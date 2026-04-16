@@ -17,6 +17,7 @@ add_executable(projekt_algorytmy
         lib/Parameters.cpp
         include/DoublyLinkedListSort.h
         include/Application.h
+        include/DataGenerator.h
 )
 
 target_include_directories(projekt_algorytmy PRIVATE

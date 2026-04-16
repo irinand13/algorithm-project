@@ -2,6 +2,7 @@
 
 #include "ArraySort.h"
 #include "FileReader.h"
+#include "DataGenerator.h"
 #include "SinglyLinkedList.h"
 #include "SinglyLinkedListSort.h"
 #include <string>
@@ -13,73 +14,14 @@ using namespace std;
 int main() {
      srand(time(nullptr));
      string fileName = "data.txt";
-      // Array<double> arr = readToArray<double>(fileName);
-      // Array<double> test = arr;
-      //
-      // if (test.isSorted()) {
-      //      cout << "sorted" << endl;
-      // }else {
-      //      cout << "not sorted" << endl;
-      // }
-      //
-      // test.read();
-      // cout << endl;
-      // Parameters::shellParameter = Parameters::ShellParameters::option3;
-      // ArraySort::shellSort(test, Parameters::shellParameter);
-      // test.read();
-      // // ArraySort::bucketSort(test);
-      // // test.read();
-      // if (test.isSorted()) {
-      //      cout << "sorted" << endl;
-      // }else {
-      //      cout << "not sorted" << endl;
-      // }
+     auto arr = DataGenerator::generateArray<double>(10);
 
+     for (int i = 0; i < 10; i++)std::cout << arr[i] << " ";
 
+     std::cout << "\n";
 
-
-
-     SinglyLinkedList<string> singlyLinkedList = FileReader::readToSinglyLinkedList<string>(fileName);
-     SinglyLinkedList<string> test1 = singlyLinkedList;
-    Parameters::pivot = Parameters::Pivots::random;
-    test1.read();
-    if (test1.isSorted()) {
-        cout << "sorted" << endl;
-    }else {
-        cout << "not sorted" << endl;
-    }
-     // SinglyLinkedListSort::bucketSort(test1);
-     // test1.read();
-
-     Parameters::shellParameter = Parameters::ShellParameters::option2;
-     SinglyLinkedListSort::shellSort(test1, Parameters::shellParameter);
-     test1.read();
-
-    if (test1.isSorted()) {
-        cout << "sorted" << endl;
-    }else {
-        cout << "not sorted" << endl;
-    }
-
-    // DoublyLinkedList<string> doubly_linked = readToDoublyLinkedList<string>(fileName);
-    // DoublyLinkedList<string> test2 = doubly_linked;
-    // test2.read();
-    // if (test2.isSorted()) {
-    //     cout << "Sorted" << endl;
-    // }else {
-    //     cout << "Not Sorted" << endl;
-    // }
-    // Parameters::shellParameter = Parameters::ShellParameters::option1;
-    // DoublyLinkedListSort::quickSort(test2);
-    // test2.read();
-    //
-    //
-    // if (test2.isSorted()) {
-    //     cout << "Sorted" << endl;
-    // }else {
-    //     cout << "Not Sorted" << endl;
-    // }
-
-
-
+     auto list = DataGenerator::generateSinglyLinkedList<char>(10);
+     list.read();
+     auto doubly_linked_list = DataGenerator::generateDoublyLinkedList<string>(10);
+     doubly_linked_list.read();
 }

@@ -73,7 +73,7 @@ class DoublyLinkedList {
 
         Node* temp = other.head;
         while (temp != nullptr) {
-            push(temp->data);
+            push_back(temp->data);
             temp = temp->next;
         }
 
@@ -170,13 +170,13 @@ class DoublyLinkedList {
     void push(T d) {
         Node* newNode = new Node(d);
 
-        if (!head) {
+        if (!head){
             head = tail = newNode;
-        } else {
+        }else{
             tail->next = newNode;
+            newNode->prev = tail;
             tail = newNode;
         }
-
         size++;
     }
 
