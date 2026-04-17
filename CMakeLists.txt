@@ -24,3 +24,9 @@ target_include_directories(projekt_algorytmy PRIVATE
         include
         lib
 )
+
+target_compile_options(projekt_algorytmy PRIVATE
+        -Wall
+        -Wextra
+        -Werror
+)

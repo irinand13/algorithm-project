@@ -108,7 +108,7 @@ private:
 
             auto start = std::chrono::high_resolution_clock::now();
 
-            sortArray(array);
+            sortArray(copy);
 
             auto end = std::chrono::high_resolution_clock::now();
             auto duration =
@@ -134,7 +134,7 @@ private:
 
             auto start = std::chrono::high_resolution_clock::now();
 
-            sortSinglyLinkedList(singlyList);
+            sortSinglyLinkedList(copy);
 
             auto end = std::chrono::high_resolution_clock::now();
             auto duration =
@@ -160,7 +160,7 @@ private:
 
             auto start = std::chrono::high_resolution_clock::now();
 
-            sortDoublyLinkedList(doublyList);
+            sortDoublyLinkedList(copy);
 
             auto end = std::chrono::high_resolution_clock::now();
             auto duration =
