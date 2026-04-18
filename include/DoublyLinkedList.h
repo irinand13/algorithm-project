@@ -111,25 +111,11 @@ class DoublyLinkedList {
         }
     }
 
-    int getSize () {
-        return size;
-    }
-
-    Node* getHead() {
-        return head;
-    }
-
-    Node* getTail() {
-        return tail;
-    }
-
-    void setHead(Node* newHead) {
-        head = newHead;
-    }
-
-    void setTail(Node* newTail) {
-        tail = newTail;
-    }
+    int getSize () {return size;}
+    Node* getHead() {return head;}
+    Node* getTail() {return tail;}
+    void setHead(Node* newHead) {head = newHead;}
+    void setTail(Node* newTail) {tail = newTail;}
 
     bool isSorted() {
         Node* current = head;

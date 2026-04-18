@@ -52,13 +52,8 @@ public:
     }
 
     //destruktor tabeli
-    ~Array() {
-        delete[] data;
-    }
-
-    T& operator[](int index) {
-        return data[index];
-    }
+    ~Array() {delete[] data;}
+    T& operator[](int index) {return data[index];}
 
    // wstawianie wartości do tabeli
     void set(int index, const T& value) {
@@ -101,9 +96,7 @@ public:
     }
 
     //zwraca rozmiar tabeli
-    int getSize() {
-        return array_size;
-    }
+    int getSize() {return array_size;}
 
     // sprawdza czy tabela jest posortowana i zwraca prawdę albo fałsz
     bool isSorted() {

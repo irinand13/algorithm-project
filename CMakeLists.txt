@@ -20,6 +20,8 @@ add_executable(projekt_algorytmy
         include/DataGenerator.h
         include/FileWriter.h
         include/FileWriter.h
+        include/Stack.h
+        include/BinaryTree.h
 )
 
 target_include_directories(projekt_algorytmy PRIVATE

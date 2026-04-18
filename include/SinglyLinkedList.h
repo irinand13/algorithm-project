@@ -107,9 +107,7 @@ public:
         }
     }
 
-    int getSize() {
-        return size;
-    }
+    int getSize() {return size;}
 
     T findMin() const {
         if (head == nullptr) {
@@ -143,13 +141,8 @@ public:
         return max;
     }
 
-    Node* getHead() {
-        return head;
-    }
-
-    void setHead(Node* newHead) {
-        head = newHead;
-    }
+    Node* getHead() {return head;}
+    void setHead(Node* newHead) {head = newHead;}
 
     bool isSorted() {
         Node* current = head;
@@ -164,6 +157,13 @@ public:
         return true;
     }
 
+    void push_front(T d) {
+        Node *newNode = new Node(d);
+        newNode->next = head;
+
+        head = newNode;
+        size++;
+    }
 
 };
 
