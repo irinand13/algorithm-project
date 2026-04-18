@@ -53,9 +53,9 @@ namespace DoublyLinkedListSort {
     }
 
 
-     template<class T>
+    template<class T>
     typename DoublyLinkedList<T>::Node*
-    quickSortRecursive(typename DoublyLinkedList<T>::Node* head, int size)
+    quickSortRecursive(typename DoublyLinkedList<T>::Node* head, int size,Parameters::Pivots pivotType)
     {
         using Node = typename DoublyLinkedList<T>::Node;
 
@@ -64,7 +64,7 @@ namespace DoublyLinkedListSort {
 
         Node* pivotNode = head;
 
-        switch (Parameters::pivot) {
+        switch (pivotType) {
 
             case Parameters::Pivots::middle:
                 for (int i = 0; i < size / 2; i++)
@@ -123,8 +123,8 @@ namespace DoublyLinkedListSort {
             current = next;
         }
 
-        lessHead = quickSortRecursive<T>(lessHead, lessSize);
-        greaterHead = quickSortRecursive<T>(greaterHead, greaterSize);
+        lessHead = quickSortRecursive<T>(lessHead, lessSize,pivotType);
+        greaterHead = quickSortRecursive<T>(greaterHead, greaterSize, pivotType);
 
         Node* newHead = nullptr;
         Node* tail = nullptr;
@@ -152,10 +152,31 @@ namespace DoublyLinkedListSort {
     }
 
     template<class T>
-    void quickSort(DoublyLinkedList<T>& list) {
+    void quickSort(DoublyLinkedList<T>& list,Parameters::Pivots pivotType) {
         if (list.getSize() <= 1) return;
 
-        list.head = quickSortRecursive<T>(list.head, list.size);
+        list.head = quickSortRecursive<T>(list.head, list.size, pivotType);
+    }
+
+    // Ogólny szablon dla liczb
+    template<typename T>
+    double getNormalizedValue(T value, T min, T max) {
+        if (max == min) return 0.0;
+        return static_cast<double>(value - min) / static_cast<double>(max - min);
+    }
+
+    // Obsługiwanie stringów
+    template<>
+    inline double getNormalizedValue<std::string>(std::string value, std::string min, std::string max) {
+        if (max == min) return 0.0;
+
+
+        unsigned char v = value.empty() ? 0 : value[0];
+        unsigned char mi = min.empty() ? 0 : min[0];
+        unsigned char ma = max.empty() ? 0 : max[0];
+
+        if (ma == mi) return 0.0;
+        return static_cast<double>(v - mi) / static_cast<double>(ma - mi);
     }
 
     template<class T>
@@ -176,7 +197,12 @@ namespace DoublyLinkedListSort {
         Node* current = list.getHead();
 
         while (current) {
-            int index = (current->data - min) * (bucketCount - 1) / (max - min);
+            double norm = getNormalizedValue(current->data, min, max);
+            int index = static_cast<int>(norm * (bucketCount - 1));
+
+            if (index < 0) index = 0;
+            if (index >= bucketCount) index = bucketCount - 1;
+
             buckets[index].push_back(current->data);
             current = current->next;
         }

@@ -65,7 +65,6 @@ public:
     }
 
 
-
     //destruktor listy
     ~SinglyLinkedList () {
         Node *current = head;
@@ -74,6 +73,14 @@ public:
             delete current;
             current = next;
         }
+    }
+
+    T& operator[](int index) {
+        Node* current = head;
+        for (int i = 0; i < index && current != nullptr; ++i) {
+            current = current->next;
+        }
+        return current->data;
     }
 
     //metoda która dodaje nową wartość do listy

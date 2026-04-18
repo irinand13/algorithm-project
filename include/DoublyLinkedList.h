@@ -80,6 +80,14 @@ class DoublyLinkedList {
         return *this;
     }
 
+    T& operator[](int index) {
+        Node* current = head;
+        for (int i = 0; i < index && current != nullptr; ++i) {
+            current = current->next;
+        }
+        return current->data;
+    }
+
 
     void push_back(T d) {
         Node *newNode = new Node(d);

@@ -38,12 +38,12 @@ namespace ArraySort {
 
     //rekurencja do sortowania szybkiego
     template<typename T>
-void quickSortRecursive(Array<T>& arr, int first, int last) {
+    void quickSortRecursive(Array<T>& arr, int first, int last, Parameters::Pivots pivotType) {
         if (first >= last) return;
 
         int pivotPosition;
 
-        switch (Parameters::pivot) {
+        switch (pivotType) {
             case Parameters::Pivots::middle:
                 pivotPosition = (first + last) / 2;
             break;
@@ -78,16 +78,37 @@ void quickSortRecursive(Array<T>& arr, int first, int last) {
 
         std::swap(arr[i], arr[last]);
 
-        quickSortRecursive(arr, first, i - 1);
-        quickSortRecursive(arr, i + 1, last);
+        quickSortRecursive(arr, first, i - 1, pivotType);
+        quickSortRecursive(arr, i + 1, last, pivotType);
     }
 
 
     //sortowanie szybkie
     template<typename T>
-    void quickSort (Array<T>& arr) {
+    void quickSort (Array<T>& arr,Parameters::Pivots pivotType) {
         if (arr.getSize() <= 1) return;
-        quickSortRecursive(arr, 0, arr.getSize() - 1);
+        quickSortRecursive(arr, 0, arr.getSize() - 1, pivotType);
+    }
+
+    // Ogólny szablon dla liczb
+    template<typename T>
+    double getNormalizedValue(T value, T min, T max) {
+        if (max == min) return 0.0;
+        return static_cast<double>(value - min) / static_cast<double>(max - min);
+    }
+
+    // Obsługiwanie stringów
+    template<>
+    inline double getNormalizedValue<std::string>(std::string value, std::string min, std::string max) {
+        if (max == min) return 0.0;
+
+
+        unsigned char v = value.empty() ? 0 : value[0];
+        unsigned char mi = min.empty() ? 0 : min[0];
+        unsigned char ma = max.empty() ? 0 : max[0];
+
+        if (ma == mi) return 0.0;
+        return static_cast<double>(v - mi) / static_cast<double>(ma - mi);
     }
 
     //Sortowanie kubełkowe
@@ -116,7 +137,12 @@ void quickSortRecursive(Array<T>& arr, int first, int last) {
 
         //przypisywanie wartości do kubełków na podstawie ich wartości
         for (int i = 0; i < size; i++) {
-            int index = (arr[i] - min) * (bucketCount - 1) / (max - min);
+            double norm = getNormalizedValue(arr[i], min, max);
+            int index = static_cast<int>(norm * (bucketCount - 1));
+
+            if (index < 0) index = 0;
+            if (index >= bucketCount) index = bucketCount - 1;
+
             buckets[index][bucketSizes[index]] = arr[i];
             ++bucketSizes[index];
         }

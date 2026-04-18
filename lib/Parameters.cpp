@@ -74,13 +74,13 @@ int updateEnumParameter(T &parameter, T count, std::string valueStr)
 
 int readParameters(int argc, char **argv)
 {
-  if (argc <= 0)
+  if (argc <= 1)
   {
     std::cerr << "ERROR! No parameters or wrong number!\n";
     return -1;
   }
 
-  for (int i = 0; i < argc; i++)
+  for (int i = 1; i < argc; i++)
   {
     std::string arg = std::string(argv[i]);
 

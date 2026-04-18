@@ -59,6 +59,16 @@ namespace DataGenerator
     }
 
     template <>
+    inline unsigned int generateValue <unsigned int>(){
+        static std::random_device rd;
+        static std::mt19937 gen(rd());
+        // Używamy 0 do UINT_MAX dla typu bez znaku
+        static std::uniform_int_distribution<unsigned int> dist(0, 4294967295U);
+
+        return dist(gen);
+    }
+
+    template <>
     inline std::string generateValue<std::string>(){
         static std::random_device rd;
         static std::mt19937 gen(rd());
@@ -74,10 +84,11 @@ namespace DataGenerator
         return s;
     }
 
+
     template <typename T>
     void reverseArray(Array<T>& arr){
         int left = 0;
-        int right = arr.size() - 1;
+        int right = arr.getSize() - 1;
 
         while (left < right){
             std::swap(arr[left], arr[right]);
@@ -87,7 +98,7 @@ namespace DataGenerator
     }
 
     template <typename T>
-    void reverseSinlyList(SinglyLinkedList<T>& list) {
+    void reverseSinglyList(SinglyLinkedList<T>& list) {
         typename SinglyLinkedList<T>::Node* prev = nullptr;
         typename SinglyLinkedList<T>::Node* current = list.getHead();
         typename SinglyLinkedList<T>::Node* next = nullptr;
@@ -129,12 +140,12 @@ namespace DataGenerator
             case Parameters::Distribution::random:break;
 
             case Parameters::Distribution::ascending: {
-                ArraySort::quickSort(arr);
+                ArraySort::bucketSort(arr);
                 break;
             }
 
             case Parameters::Distribution::descending: {
-                ArraySort::quickSort(arr);
+                ArraySort::bucketSort(arr);
                 reverseArray(arr);
                 break;
             }
@@ -144,7 +155,7 @@ namespace DataGenerator
                 int half = n / 2;
                 Array<T> tmp = arr;
 
-                ArraySort::quickSort(tmp);
+                ArraySort::bucketSort(arr);
                 for (int i = 0; i < half; i++)arr[i] = tmp[i];
 
                 break;
@@ -167,12 +178,12 @@ namespace DataGenerator
                 break;
 
             case Parameters::Distribution::ascending: {
-                SinglyLinkedListSort::quickSort(list);
+                SinglyLinkedListSort::bucketSort(list);
                 break;
             }
 
             case Parameters::Distribution::descending: {
-                SinglyLinkedListSort::quickSort(list);
+                SinglyLinkedListSort::bucketSort(list);
                 reverseSinglyList(list);
                 break;
             }
@@ -197,7 +208,7 @@ namespace DataGenerator
                     i++;
                 }
 
-                SinglyLinkedListSort::quickSort(first);
+                SinglyLinkedListSort::bucketSort(first);
 
                 list = first;
 
@@ -229,11 +240,11 @@ namespace DataGenerator
             break;
 
         case Parameters::Distribution::ascending:
-            DoublyLinkedListSort::quickSort(list);
+            DoublyLinkedListSort::bucketSort(list);;
             break;
 
         case Parameters::Distribution::descending: {
-            DoublyLinkedListSort::quickSort(list);
+            DoublyLinkedListSort::bucketSort(list);;
             reverseDoublyList(list);
             break;
         }
@@ -256,7 +267,7 @@ namespace DataGenerator
                 i++;
             }
 
-            DoublyLinkedListSort::quickSort(first);
+            DoublyLinkedListSort::bucketSort(first);
 
             list = first;
 

@@ -13,6 +13,7 @@
 #include "SinglyLinkedListSort.h"
 #include "DoublyLinkedListSort.h"
 #include "FileReader.h"
+#include "FileWriter.h"
 #include <chrono>
 #include <climits>
 
@@ -51,6 +52,7 @@ private:
 
     template <typename T>
     void runSingleFile() {
+        std::cout << "DEBUG: Start runSingleFile" << std::endl;
         std::string inFile = Parameters::inputFile;
         std::string outFile = Parameters::outputFile;
 
@@ -61,6 +63,7 @@ private:
 
                 if(array.isSorted()) std::cout<<"Array is sorted!"<<std::endl;
                 else std::cout<<"Array is not sorted!"<<std::endl;
+                FileWriter::writeStructureToFile<T>(Parameters::outputFile, array);
                 break;
             }
             case Parameters::Structures::singleList: {
@@ -69,6 +72,7 @@ private:
 
                 if(singlyList.isSorted()) std::cout<<"Singly list is sorted!"<<std::endl;
                 else std::cout<<"Singly list is not sorted!"<<std::endl;
+                FileWriter::writeStructureToFile<T>(Parameters::outputFile, singlyList);
                 break;
             }
             case Parameters::Structures::doubleList: {
@@ -77,6 +81,7 @@ private:
 
                 if(doublyList.isSorted()) std::cout<<"Doubly list is sorted!"<<std::endl;
                 else std::cout<<"Doubly  list is not sorted!"<<std::endl;
+                FileWriter::writeStructureToFile<T>(Parameters::outputFile, doublyList);
                 break;
             }
             default: std::cerr << "Unsupported structure!"<<std::endl;
@@ -85,22 +90,33 @@ private:
 
     template <typename T>
     void runBenchmark() {
+        FileWriter::prepareFile(Parameters::outputFile);
+        std::ofstream file(Parameters::outputFile, std::ios::app);
+
+        if (!file.is_open()) {
+            std::cerr << "Can't open file\n";
+            return;
+        }
+
         int size = Parameters::structureSize;
         int iterations = Parameters::iterations;
 
         switch (Parameters::structure) {
-            case Parameters::Structures::array: runBenchmarkArray<T>(size, iterations); break;
-            case Parameters::Structures::singleList: runBenchmarkSinglyLinkedList<T>(size, iterations); break;
-            case Parameters::Structures::doubleList: runBenchmarkDoublyLinkedList<T>(size, iterations); break;
+            case Parameters::Structures::array: runBenchmarkArray<T>(file, size, iterations); break;
+            case Parameters::Structures::singleList: runBenchmarkSinglyLinkedList<T>(file, size, iterations); break;
+            case Parameters::Structures::doubleList: runBenchmarkDoublyLinkedList<T>(file, size, iterations); break;
             default: std::cerr << "Error: Unsupported structure!"<<std::endl;
         }
     }
 
     template <typename T>
-    void runBenchmarkArray(int size, int iterations) {
+    void runBenchmarkArray(std::ofstream& file, int size, int iterations) {
+        if (iterations <= 0) return;
+        if (size <= 0) return;
+
         long long sum = 0;
         long long minTime = LLONG_MAX;
-        long long maxTime = 0;
+        long long maxTime = LLONG_MIN;
 
         Array<T> array = DataGenerator::generateArray<T>(size,Parameters::distribution);
         for (int i = 0; i < iterations; i++) {
@@ -118,14 +134,20 @@ private:
 
             if(duration < minTime)minTime = duration;
             if(duration > maxTime)maxTime = duration;
+            FileWriter::writeSingleIterationToFile(file, size, iterations, duration);
         }
+        long long average = sum / iterations;
+        FileWriter::writeSummary(file, average, minTime, maxTime);
     }
 
     template <typename T>
-    void runBenchmarkSinglyLinkedList(int size, int iterations) {
+    void runBenchmarkSinglyLinkedList(std::ofstream& file, int size, int iterations) {
+        if (iterations <= 0) return;
+        if (size <= 0) return;
+
         long long sum = 0;
         long long minTime = LLONG_MAX;
-        long long maxTime = 0;
+        long long maxTime = LLONG_MIN;
 
         SinglyLinkedList<T> singlyList = DataGenerator::generateSinglyLinkedList<T>(size, Parameters::distribution);
 
@@ -144,15 +166,22 @@ private:
 
             if(duration < minTime)minTime = duration;
             if(duration > maxTime)maxTime = duration;
+
+            FileWriter::writeSingleIterationToFile(file, size, iterations, duration);
         }
+        long long average = sum / iterations;
+        FileWriter::writeSummary(file, average, minTime, maxTime);
 
     }
 
     template <typename T>
-    void runBenchmarkDoublyLinkedList(int size, int iterations) {
+    void runBenchmarkDoublyLinkedList(std::ofstream& file,int size, int iterations) {
+        if (iterations <= 0) return;
+        if (size <= 0) return;
+
         long long sum = 0;
         long long minTime = LLONG_MAX;
-        long long maxTime = 0;
+        long long maxTime = LLONG_MIN;
 
         DoublyLinkedList<T> doublyList = DataGenerator::generateDoublyLinkedList<T>(size, Parameters::distribution);
         for (int i = 0; i < iterations; i++) {
@@ -170,7 +199,11 @@ private:
 
             if(duration < minTime)minTime = duration;
             if(duration > maxTime)maxTime = duration;
+
+            FileWriter::writeSingleIterationToFile(file, size, iterations, duration);
         }
+        long long average = sum / iterations;
+        FileWriter::writeSummary(file, average, minTime, maxTime);
     }
 
     template <typename T>

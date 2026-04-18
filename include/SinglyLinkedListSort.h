@@ -56,13 +56,13 @@ namespace SinglyLinkedListSort {
     }
 
     template<class T>
-    typename SinglyLinkedList<T>::Node* quickSortRecursive(typename SinglyLinkedList<T>::Node* head, int currentSize) {
+    typename SinglyLinkedList<T>::Node* quickSortRecursive(typename SinglyLinkedList<T>::Node* head, int currentSize,Parameters::Pivots pivotType) {
         using Node = typename SinglyLinkedList<T>::Node;
 
         if (!head || !head->next) return head;
 
         Node* pivotNode = head;
-        switch (Parameters::pivot) {
+        switch (pivotType) {
 
             case Parameters::Pivots::middle:
                 for (int i = 0; i < currentSize / 2; i++)
@@ -115,8 +115,8 @@ namespace SinglyLinkedListSort {
             current = next;
         }
 
-        lessHead = quickSortRecursive<T>(lessHead, lessSize);
-        greaterHead = quickSortRecursive<T>(greaterHead, greaterSize);
+        lessHead = quickSortRecursive<T>(lessHead, lessSize, pivotType);
+        greaterHead = quickSortRecursive<T>(greaterHead, greaterSize, pivotType);
 
 
         Node* newHead = nullptr;
@@ -143,11 +143,33 @@ namespace SinglyLinkedListSort {
 
 
     template<class T>
-    void quickSort(SinglyLinkedList<T>& list) {
+    void quickSort(SinglyLinkedList<T>& list, Parameters::Pivots pivotType) {
         if (list.getSize() <= 1) return;
 
-        list.head = quickSortRecursive<T>(list.head, list.size);
+        list.head = quickSortRecursive<T>(list.head, list.size, pivotType);
     }
+
+    // Ogólny szablon dla liczb
+    template<typename T>
+    double getNormalizedValue(T value, T min, T max) {
+        if (max == min) return 0.0;
+        return static_cast<double>(value - min) / static_cast<double>(max - min);
+    }
+
+    // Obsługiwanie stringów
+    template<>
+    inline double getNormalizedValue<std::string>(std::string value, std::string min, std::string max) {
+        if (max == min) return 0.0;
+
+
+        unsigned char v = value.empty() ? 0 : value[0];
+        unsigned char mi = min.empty() ? 0 : min[0];
+        unsigned char ma = max.empty() ? 0 : max[0];
+
+        if (ma == mi) return 0.0;
+        return static_cast<double>(v - mi) / static_cast<double>(ma - mi);
+    }
+
 
     template<class T>
     void bucketSort(SinglyLinkedList<T>& singlyList) {
@@ -162,7 +184,11 @@ namespace SinglyLinkedListSort {
 
         typename SinglyLinkedList<T>::Node* current  = singlyList.getHead();
         while (current != nullptr) {
-            int bucketIndex = ((current->data)-min)*(bucketCount-1)/(max - min);
+            double norm = getNormalizedValue(current->data, min, max);
+            int bucketIndex = static_cast<int>(norm * (bucketCount - 1));
+
+            if (bucketIndex >= bucketCount) bucketIndex = bucketCount - 1;
+
             buckets[bucketIndex].push(current->data);
             current = current->next;
         }

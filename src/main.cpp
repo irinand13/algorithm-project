@@ -3,25 +3,32 @@
 #include "ArraySort.h"
 #include "FileReader.h"
 #include "DataGenerator.h"
+#include "FileWriter.h"
 #include "SinglyLinkedList.h"
 #include "SinglyLinkedListSort.h"
 #include <string>
 #include "ArraySort.h"
 #include "DoublyLinkedListSort.h"
+#include "Runner.h"
 
 using namespace std;
 
-int main() {
-     srand(time(nullptr));
-     string fileName = "data.txt";
-     auto arr = DataGenerator::generateArray<double>(10);
+int main(int argc, char* argv[]) {
+    std::cout << "DEBUG: Liczba argumentow (argc): " << argc << std::endl;
+    for(int i=0; i<argc; ++i) {
+        std::cout << "DEBUG: argv[" << i << "] = " << argv[i] << std::endl;
+    }
 
-     for (int i = 0; i < 10; i++)std::cout << arr[i] << " ";
+    // Wywołanie czytania parametrów
+    if (Parameters::readParameters(argc, argv) != 0) {
+        std::cerr << "BLAD: Nie udalo sie wczytac parametrow!" << std::endl;
+        return 1;
+    }
 
-     std::cout << "\n";
+    std::cout << "DEBUG: Tryb pracy: " << static_cast<int>(Parameters::runMode) << std::endl;
 
-     auto list = DataGenerator::generateSinglyLinkedList<char>(10);
-     list.read();
-     auto doubly_linked_list = DataGenerator::generateDoublyLinkedList<string>(10);
-     doubly_linked_list.read();
+    Runner runner;
+    runner.run();
+
+    return 0;
 }
