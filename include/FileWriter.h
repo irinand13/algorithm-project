@@ -13,12 +13,12 @@
 #ifndef FILEWRITER_H
 #define FILEWRITER_H
 namespace FileWriter {
-    inline void writeDataToFile(
+    inline bool headerWritten = false;
+    inline void writeDataToFile(std::ofstream& file,
         int size,
         int iterations,
         int duration) {
 
-        std::ofstream file(Parameters::outputFile, std::ios::app);
 
         if (!file.is_open()) {
             std::cout<<"Can't open output file"<<std::endl;
@@ -27,9 +27,14 @@ namespace FileWriter {
 
         auto now = std::chrono::system_clock::now();
         std::time_t nowTime = std::chrono::system_clock::to_time_t(now);
-        std::tm* time = std::localtime(&nowTime);
+        std::tm time = *std::localtime(&nowTime);
 
-        file << std::put_time(time, "%Y-%m-%d %H:%M:%S") <<",";
+        if (!headerWritten){
+            file << "time,algorithm,structure,size,dataType,distribution,iterations,pivot,shellParameter,duration\n";
+            headerWritten = true;
+        }
+
+        file << std::put_time(&time, "%Y-%m-%d %H:%M:%S") <<",";
         file << std::to_string(static_cast<int>(Parameters::algorithm)) << ",";
         file << std::to_string(static_cast<int>(Parameters::structure)) << ",";
         file << size << ",";
@@ -41,8 +46,7 @@ namespace FileWriter {
 
         file << duration << std::endl;
     }
-    inline void writeResultToFile(long long average, long long min, long long max) {
-        std::ofstream file(Parameters::outputFile, std::ios::app);
+    inline void writeResultToFile(std::ofstream& file, long long average, long long min, long long max) {
 
         if (!file.is_open()) {
             std::cout<<"Can't open output file"<<std::endl;
