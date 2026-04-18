@@ -78,12 +78,18 @@ namespace FileWriter {
 
     inline void prepareFile(const std::string& filename) {
         std::ifstream check(filename);
-        bool isEmpty = check.peek() == std::ifstream::traits_type::eof();
+        bool fileExists = check.good();
+
+        bool isEmpty = true;
+        if (fileExists) {
+            isEmpty = (check.peek() == std::ifstream::traits_type::eof());
+        }
         check.close();
 
-        if (isEmpty) {
-            std::ofstream file(filename);
-            file << "timestamp,algorithm,structure,size,dataType,distribution,iterations,pivot,shellParam,type,duration_us\n";
+        if (!fileExists || isEmpty) {
+            std::ofstream file(filename, std::ios::out);
+            file << "timestamp;algorithm;structure;size;dataType;distribution;iterations;pivot;shellParam;type;duration_us\n";
+            file.close();
         }
     }
 
@@ -96,15 +102,15 @@ namespace FileWriter {
         std::time_t nowTime = std::chrono::system_clock::to_time_t(now);
         std::tm* timePtr = std::localtime(&nowTime);
 
-        file << std::put_time(timePtr, "%Y-%m-%d %H:%M:%S") << ","
-             << getAlgorithmName(Parameters::algorithm) << ","
-             << getStructureName(Parameters::structure) << ","
-             << size << ","
-             << getDataTypeName(Parameters::dataType) << ","
-             << getDistributionName(Parameters::distribution) << ","
-             << iterations << ","
-             << getPivotName(Parameters::pivot) << ","
-             << getShellParameterName(Parameters::shellParameter) << ","
+        file << std::put_time(timePtr, "%Y-%m-%d %H:%M:%S") << ";"
+             << getAlgorithmName(Parameters::algorithm) << ";"
+             << getStructureName(Parameters::structure) << ";"
+             << size << ";"
+             << getDataTypeName(Parameters::dataType) << ";"
+             << getDistributionName(Parameters::distribution) << ";"
+             << iterations << ";"
+             << getPivotName(Parameters::pivot) << ";"
+             << getShellParameterName(Parameters::shellParameter) << ";"
              << "SINGLE," << duration << "\n";
     }
 

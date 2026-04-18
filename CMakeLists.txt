@@ -34,3 +34,7 @@ target_compile_options(projekt_algorytmy PRIVATE
         -Wextra
         -Werror
 )
+
+if(MINGW OR WIN32)
+    set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -static -static-libgcc -static-libstdc++")
+endif()

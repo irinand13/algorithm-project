@@ -131,6 +131,8 @@ private:
             case Parameters::Structures::binaryTree: runBenchmarkBinaryTree<T>(file, size, iterations); break;
             default: std::cerr << "Error: Unsupported structure!"<<std::endl;
         }
+
+        file.close();
     }
 
     template <typename T>
