@@ -157,7 +157,7 @@ namespace DataGenerator
     }
 
     template <typename T>
-    SinglyLinkedList<T> generateSinglyList(int size, Parameters::Distribution distribution){
+    SinglyLinkedList<T> generateSinglyLinkedList(int size, Parameters::Distribution distribution){
         SinglyLinkedList<T> list;
 
         for (int i = 0; i < size; i++)list.push(generateValue<T>());
@@ -218,7 +218,7 @@ namespace DataGenerator
     }
 
     template <typename T>
-    DoublyLinkedList<T> generateDoublyList(int size, Parameters::Distribution distribution){
+    DoublyLinkedList<T> generateDoublyLinkedList(int size, Parameters::Distribution distribution){
     DoublyLinkedList<T> list;
 
     for (int i = 0; i < size; i++)

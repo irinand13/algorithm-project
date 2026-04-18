@@ -16,8 +16,10 @@ add_executable(projekt_algorytmy
         include/SinglyLinkedListSort.h
         lib/Parameters.cpp
         include/DoublyLinkedListSort.h
-        include/Application.h
+        include/Runner.h
         include/DataGenerator.h
+        include/FileWriter.h
+        include/FileWriter.h
 )
 
 target_include_directories(projekt_algorytmy PRIVATE

@@ -18,7 +18,7 @@
 
 #ifndef APPLICATION_H
 #define APPLICATION_H
-class Application {
+class Runner {
     public:
     void run() {
 
@@ -102,7 +102,7 @@ private:
         long long minTime = LLONG_MAX;
         long long maxTime = 0;
 
-        Array<T> array = DataGenerator::generateArray<T>(size);
+        Array<T> array = DataGenerator::generateArray<T>(size,Parameters::distribution);
         for (int i = 0; i < iterations; i++) {
             Array<T> copy = array;
 
@@ -116,8 +116,8 @@ private:
 
             sum += duration;
 
-            if(duration < minTime) minTime = duration;
-            else if(duration > maxTime) maxTime = duration;
+            if(duration < minTime)minTime = duration;
+            if(duration > maxTime)maxTime = duration;
         }
     }
 
@@ -127,7 +127,7 @@ private:
         long long minTime = LLONG_MAX;
         long long maxTime = 0;
 
-        SinglyLinkedList<T> singlyList = DataGenerator::generateSinglyLinkedList<T>(size);
+        SinglyLinkedList<T> singlyList = DataGenerator::generateSinglyLinkedList<T>(size, Parameters::distribution);
 
         for (int i = 0; i < iterations; i++) {
             SinglyLinkedList<T> copy = singlyList;
@@ -142,8 +142,8 @@ private:
 
             sum += duration;
 
-            if(duration < minTime) minTime = duration;
-            else if(duration > maxTime) maxTime = duration;
+            if(duration < minTime)minTime = duration;
+            if(duration > maxTime)maxTime = duration;
         }
 
     }
@@ -154,7 +154,7 @@ private:
         long long minTime = LLONG_MAX;
         long long maxTime = 0;
 
-        DoublyLinkedList<T> doublyList = DataGenerator::generateDoublyLinkedList<T>(size);
+        DoublyLinkedList<T> doublyList = DataGenerator::generateDoublyLinkedList<T>(size, Parameters::distribution);
         for (int i = 0; i < iterations; i++) {
             DoublyLinkedList<T> copy = doublyList;
 
@@ -168,8 +168,8 @@ private:
 
             sum += duration;
 
-            if(duration < minTime) minTime = duration;
-            else if(duration > maxTime) maxTime = duration;
+            if(duration < minTime)minTime = duration;
+            if(duration > maxTime)maxTime = duration;
         }
     }
 
