@@ -280,12 +280,32 @@ namespace DataGenerator
             break;
         }
 
+
         default:
             break;
+        }
+
+
+        return list;
     }
 
-    return list;
-}
+    template <typename T>
+    Stack<T> generateStack(int size) {
+        Stack<T> stack;
+        for (int i = 0; i < size; i++) {
+            stack.push(generateValue<T>());
+        }
+        return stack;
+    }
+
+    template <typename T>
+    BinaryTree<T> generateBinaryTree(int size) {
+        BinaryTree<T> tree;
+        for (int i = 0; i < size; i++) {
+            tree.add(generateValue<T>());
+        }
+        return tree;
+    }
 
 }
 #ifndef DATAGENERATOR_H

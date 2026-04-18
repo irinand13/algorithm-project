@@ -7,6 +7,9 @@
 #include <Array.h>
 #include <SinglyLinkedList.h>
 #include <DoublyLinkedList.h>
+
+#include "BinaryTree.h"
+#include "Stack.h"
 using namespace std;
 
 #ifndef FILEREADER_H
@@ -77,6 +80,48 @@ class FileReader {
                 list.push_back(t);
             }
             return list;
+        }
+    }
+
+    // Odczytuje wartości z pliku i dodaje je na stos
+    template <typename T>
+    static Stack<T> readToStack(const string& fileName) {
+        fstream file(fileName);
+        int size;
+        T t;
+
+        if(!file.is_open()) {
+            cerr << "Error opening file " << fileName << endl;
+            return Stack<T>();
+        } else {
+            file >> size;
+            Stack<T> stack{};
+            for (int i = 0; i < size; i++) {
+                file >> t;
+                stack.push(t);
+            }
+            return stack;
+        }
+    }
+
+    // Odczytuje wartości z pliku i buduje drzewo binarne (BST)
+    template <typename T>
+    static BinaryTree<T> readToBinaryTree(const string& fileName) {
+        fstream file(fileName);
+        int size;
+        T t;
+
+        if(!file.is_open()) {
+            cerr << "Error opening file " << fileName << endl;
+            return BinaryTree<T>();
+        } else {
+            file >> size;
+            BinaryTree<T> tree{};
+            for (int i = 0; i < size; i++) {
+                file >> t;
+                tree.add(t);
+            }
+            return tree;
         }
     }
 };

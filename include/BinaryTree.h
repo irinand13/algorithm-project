@@ -10,7 +10,7 @@ public:
     struct Node {
         T data;
         Node *left, *right;
-        Node(T d) : data(d), left(nullptr), right(nullptr) {}
+        explicit Node(T d) : data(d), left(nullptr), right(nullptr) {}
     };
 
 private:
@@ -45,6 +45,7 @@ public:
     }
 
     int getSize() { return size; }
+    Node* getRoot() { return root; }
 
     void fillArrayInOrder(Node* node, T* arr, int& index) {
         if (node == nullptr) return;
@@ -52,5 +53,25 @@ public:
         arr[index++] = node->data;
         fillArrayInOrder(node->right, arr, index);
     }
+
+    bool isSorted() {
+        if (root == nullptr) return true;
+
+        T* lastValue = nullptr;
+        return isSortedRecursive(root, lastValue);
+    }
+
+    bool isSortedRecursive(Node* node, T*& lastValue) {
+        if (node == nullptr) return true;
+
+        if (!isSortedRecursive(node->left, lastValue)) return false;
+
+        if (lastValue != nullptr && (node->data) < *lastValue) return false;
+        lastValue = &(node->data);
+
+        return isSortedRecursive(node->right, lastValue);
+
+    }
+
 };
 #endif //BINARYTREE_H

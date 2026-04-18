@@ -25,6 +25,5 @@ public:
             list.size--;
         }
     }
-    
 };
 #endif //STACK_H
