@@ -14,7 +14,7 @@
 
 namespace ArraySort {
 
-    // zamiana dwóch wartości tabeli miejscami
+    // Metoda, która zamienia dwie wartości w tabeli miejscami
     template<class T>
     void swap(T& a, T& b) noexcept {
         T temp = a;
@@ -22,7 +22,9 @@ namespace ArraySort {
         b = temp;
     }
 
-    // metoda sortawania przez wstawianie
+    // Metoda sortawania przez wstawianie
+    //Dzieli tablicę na 2 części (posortowaną i nieposortowaną)
+    // Wstawia element z części nie posortowanej w odpowiednie miejsce
     template<typename T>
     void insertionSort (T* arr, int size) {
         for (int i = 1; i < size; i++) {
@@ -36,54 +38,59 @@ namespace ArraySort {
         }
     }
 
-    //rekurencja do sortowania szybkiego
+    //Rekurencja do sortowania szybkiego
+    //Dzieli tablice na 2 części(elementy większe i mniesze od pivota)
     template<typename T>
     void quickSortRecursive(Array<T>& arr, int first, int last, Parameters::Pivots pivotType) {
         if (first >= last) return;
 
         int pivotPosition;
 
+        //wybór pivota
         switch (pivotType) {
             case Parameters::Pivots::middle:
-                pivotPosition = (first + last) / 2;
+                pivotPosition = (first + last) / 2; //ustawia miejsce środkowe
             break;
 
             case Parameters::Pivots::random:
-                pivotPosition = rand() % (last - first + 1) + first;
+                pivotPosition = rand() % (last - first + 1) + first; //ustawia losowe miejsce z zakresu od fisrt do last
             break;
 
             case Parameters::Pivots::left:
-                pivotPosition = first;
+                pivotPosition = first; //ustawia na skrajnie lewy
             break;
 
             case Parameters::Pivots::right:
-                pivotPosition = last;
+                pivotPosition = last; //ustawia na skrajny prawy
             break;
 
             default:
                 pivotPosition = last;
         }
 
-        std::swap(arr[pivotPosition], arr[last]);
-        T pivot = arr[last];
+        std::swap(arr[pivotPosition], arr[last]); //zamiana pivota z ostatnim elementem
+        T pivot = arr[last]; //wartość pivota
 
-        int i = first;
+        int i = first; //granica między mniejszymi oraz większymi elementami
 
+        //Pętla, która przchdzi przez każdy element i porównuje z wartością pivota
         for (int j = first; j < last; j++) {
             if (arr[j] < pivot) {
-                std::swap(arr[i], arr[j]);
+                std::swap(arr[i], arr[j]); //jeśli mniejsze od pivota, przesuń do lewej części
                 i++;
             }
         }
 
         std::swap(arr[i], arr[last]);
 
+        //wywołanie rekurencji dla tablic wynikowych
         quickSortRecursive(arr, first, i - 1, pivotType);
         quickSortRecursive(arr, i + 1, last, pivotType);
     }
 
 
-    //sortowanie szybkie
+    //Sortowanie szybkie
+    //Wywoła metoda rekurencyjną quickSortRecursive
     template<typename T>
     void quickSort (Array<T>& arr,Parameters::Pivots pivotType) {
         if (arr.getSize() <= 1) return;
@@ -91,23 +98,27 @@ namespace ArraySort {
     }
 
     // Ogólny szablon dla liczb
+    //Normalizacja wartości
+    //Przeszktałca na ułamek wartość z dowolnego przedziału liczbowego
     template<typename T>
     double getNormalizedValue(T value, T min, T max) {
         if (max == min) return 0.0;
         return static_cast<double>(value - min) / static_cast<double>(max - min);
     }
 
-    // Obsługiwanie stringów
+    // Obsługiwanie stringów dla podziału na kubełki w BucketSort
+    // Oblicza przybliżoną pozycję elementu na podstawie wartości ASCII pierwszego znaku
     template<>
     inline double getNormalizedValue<std::string>(std::string value, std::string min, std::string max) {
         if (max == min) return 0.0;
 
-
+        //pobieranie wartości ASCII z pierwszego znaku
         unsigned char v = value.empty() ? 0 : value[0];
         unsigned char mi = min.empty() ? 0 : min[0];
         unsigned char ma = max.empty() ? 0 : max[0];
 
         if (ma == mi) return 0.0;
+        //zwraca proporcję znaku 'v' względem max i min
         return static_cast<double>(v - mi) / static_cast<double>(ma - mi);
     }
 
@@ -166,18 +177,20 @@ namespace ArraySort {
             delete[] buckets[i];
         }
 
+        //usuwanie kubełków oraz tabeli rozmiarów
         delete[] bucketSizes;
-        delete[] buckets; //usuwanie kubełków
+        delete[] buckets;
     }
 
 
     //Sortowanie Shella
     //Porównuje elementy oddalone o konkretny odstęp
-    //Ten odstęp zmiejsza się stopniowo w 2 razy, aż nie będzie 1
+    //Ten odstęp zmiejsza się stopniowo w zależności od opcji wyboru gap
     template<typename T>
     void shellSort(Array<T>& arr, Parameters::ShellParameters shellParameter) {
         const int size = arr.getSize();
 
+        //wybór opcji odstępu
         if(shellParameter == Parameters::ShellParameters::option1) {
             for (int gap = size / 2; gap > 0; gap /= 2) {
                 for (int i = gap; i < size; i++) {
@@ -191,7 +204,6 @@ namespace ArraySort {
                     arr[j] = temp;
                 }
             }
-
         }else if(shellParameter == Parameters::ShellParameters::option2) {
             int gap = 1;
 

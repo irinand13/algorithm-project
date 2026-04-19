@@ -12,11 +12,12 @@ using namespace std;
 template<class T>
 class Array {
 private:
-    int array_size;
-    T *data;
+    int array_size;   //rozmiar tablicy
+    T *data;  //wskażnik na dynamiczną tablicę danych
 
 public:
 
+    //konstrukor tablicy
     explicit Array(int size) {
         if (size > 0) {
             data = new T[size]{};
@@ -27,22 +28,30 @@ public:
         }
     }
 
+
+    //Konstruktor kopiujący
+    //Tworzy kopię obiektu
     Array(const Array& other) {
         array_size = other.array_size;
-        data = new T[array_size];
+        data = new T[array_size]; //alokacja pamięci
 
         for (int i = 0; i < array_size; i++) {
             data[i] = other.data[i];
         }
     }
 
+
+    //operator przypisania
     Array& operator=(const Array& other) {
         if (this == &other) return *this;
 
+        //zwolnienie pamięci, aby nie było wycieków pamięci
         delete[] data;
 
-        array_size = other.array_size;
-        data = new T[array_size];
+
+        array_size = other.array_size; //alokacja pamięci
+        data = new T[array_size]; //kopiowanie danych
+
 
         for (int i = 0; i < array_size; i++) {
             data[i] = other.data[i];
@@ -53,9 +62,11 @@ public:
 
     //destruktor tabeli
     ~Array() {delete[] data;}
+
+    //operator dostępu do elementów tabeli
     T& operator[](int index) {return data[index];}
 
-   // wstawianie wartości do tabeli
+   // Metoda dodawania wartości do tabeli
     void set(int index, const T& value) {
         if (index >= array_size || index < 0) {
             throw std::invalid_argument("Index out of range");
@@ -64,7 +75,7 @@ public:
         }
     }
 
-    // odczytywanie tabeli
+    // Metoda odczytywania tabeli
     void read() {
         cout<<"Array reading..."<<std::endl;
         for (int i = 0; i < array_size; i++) {
@@ -72,7 +83,7 @@ public:
         }
     }
 
-    //szuka maksymalną wartość w tabeli
+    //Metoda do wyszukiwania maksymalnej wartości w tabeli
     T findMax() {
         T max = data[0];
         for (int i = 1; i < array_size; i++) {
@@ -84,7 +95,7 @@ public:
     }
 
 
-    //szuka minimalną wartość w tabeli
+    //Metoda do wyszukiwania minimalnej wartości w tabeli
     T findMin() {
         T min = data[0];
         for (int i = 1; i < array_size; i++) {
@@ -95,7 +106,7 @@ public:
         return min;
     }
 
-    //zwraca rozmiar tabeli
+    //Metoda zwracająca rozmiar tabeli
     int getSize() {return array_size;}
 
     // sprawdza czy tabela jest posortowana i zwraca prawdę albo fałsz
