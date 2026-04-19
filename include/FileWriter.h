@@ -111,14 +111,14 @@ namespace FileWriter {
              << iterations << ";"
              << getPivotName(Parameters::pivot) << ";"
              << getShellParameterName(Parameters::shellParameter) << ";"
-             << "SINGLE," << duration << "\n";
+             << "SINGLE;" << duration << "\n";
     }
 
 
     inline void writeSummary(std::ofstream& file, long long avg, long long min, long long max) {
-        file << ",,,,,,,,,AVG," << avg << "\n";
-        file << ",,,,,,,,,MIN," << min << "\n";
-        file << ",,,,,,,,,MAX," << max << "\n";
+        file << ";;;;;;;;;AVG;" << avg << "\n";
+        file << ";;;;;;;;;MIN;" << min << "\n";
+        file << ";;;;;;;;;MAX;" << max << "\n";
     }
 
     template <typename T, typename Container>
