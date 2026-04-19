@@ -1,0 +1,14 @@
+# ninja log v6
+9	753	7982220375908677	CMakeFiles/projekt_algorytmy.dir/lib/Parameters.cpp.obj	2ee4c79b9d43ae21
+7	700	7982435739546465	build.ninja	57b1c93265152c14
+8	2407	7982337853624144	CMakeFiles/projekt_algorytmy.dir/src/main.cpp.obj	a56eb0373aea189a
+8	977	7982435451617882	projekt_algorytmy.exe	3b40e3233d01ab02
+125	1787	7978658898816044	CMakeFiles/projekt_algorytmy.dir/src/Parameters.cpp.obj	549886d4d14f7034
+13	2837	7982500875928259	CMakeFiles/projekt_algorytmy.dir/src/main.cpp.obj	a56eb0373aea189a
+2837	3824	7982500904169083	projekt_algorytmy.exe	3b40e3233d01ab02
+7	2402	7982509429543722	CMakeFiles/projekt_algorytmy.dir/src/main.cpp.obj	a56eb0373aea189a
+2403	3144	7982509453499295	projekt_algorytmy.exe	3b40e3233d01ab02
+7	2504	7982512796807987	CMakeFiles/projekt_algorytmy.dir/src/main.cpp.obj	a56eb0373aea189a
+2504	3242	7982512821781839	projekt_algorytmy.exe	3b40e3233d01ab02
+8	2362	7982513614026952	CMakeFiles/projekt_algorytmy.dir/src/main.cpp.obj	a56eb0373aea189a
+2363	3059	7982513637580702	projekt_algorytmy.exe	3b40e3233d01ab02

@@ -1,0 +1,3 @@
+C:/Users/iraan/algorithm-project/cmake-build-debug/CMakeFiles/projekt_algorytmy.dir
+C:/Users/iraan/algorithm-project/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/iraan/algorithm-project/cmake-build-debug/CMakeFiles/rebuild_cache.dir
