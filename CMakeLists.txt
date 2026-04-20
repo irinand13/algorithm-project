@@ -10,7 +10,6 @@ add_executable(projekt_algorytmy
         include/DoublyLinkedList.h
         include/SinglyLinkedList.h
         include/Array.h
-        include/Types.h
         include/FileReader.h
         include/ArraySort.h
         include/SinglyLinkedListSort.h

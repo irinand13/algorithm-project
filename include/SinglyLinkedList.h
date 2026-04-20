@@ -11,6 +11,7 @@ using namespace std;
 template<class T>
 class SinglyLinkedList {
 public:
+    //węzeł
     struct Node  {
         T data;
         Node *next;
@@ -32,6 +33,7 @@ public:
         size = 0;
     }
 
+    //konstruktor kopiujący
     SinglyLinkedList (const SinglyLinkedList& other) {
         head = nullptr;
         size = 0;
@@ -44,6 +46,7 @@ public:
         }
     }
 
+    // Operator przypisania
     SinglyLinkedList& operator=(const SinglyLinkedList& other) {
         if (this == &other) return *this;
 
@@ -75,6 +78,8 @@ public:
         }
     }
 
+
+    // Operator indeksowania
     T& operator[](int index) {
         Node* current = head;
         for (int i = 0; i < index && current != nullptr; ++i) {
@@ -98,6 +103,7 @@ public:
         size++;
     }
 
+    //odczytuje wartości listy
     void read() {
         Node *current = head;
         while (current != nullptr) {
@@ -107,8 +113,10 @@ public:
         }
     }
 
+    //zwraca rozmiar
     int getSize() {return size;}
 
+    //zwraca wartość minimalną listy
     T findMin() const {
         if (head == nullptr) {
             cout << "The list is empty" << endl;
@@ -125,6 +133,7 @@ public:
         return min;
     }
 
+    //zwraca wartość maksymalną listy
     T findMax() const {
         if (head == nullptr) {
             cout << "The list is empty" << endl;
@@ -141,9 +150,12 @@ public:
         return max;
     }
 
+    //zwraca początek listy
     Node* getHead() {return head;}
+    //ustawia początek listy
     void setHead(Node* newHead) {head = newHead;}
 
+    //sprawdza czy listy jest posortowana
     bool isSorted() {
         Node* current = head;
 
@@ -157,6 +169,7 @@ public:
         return true;
     }
 
+    //dodaje wartość na początek listy
     void push_front(T d) {
         Node *newNode = new Node(d);
         newNode->next = head;

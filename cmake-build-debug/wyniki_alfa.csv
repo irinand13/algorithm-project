@@ -1,4 +1,4 @@
-timestamp;algorithm;structure;size;dataType;distribution;iterations;pivot;shellParam;type;duration_us;;;;Right;Left;Random;Middle
+timestamp;algorithm;structure;size;dataType;distribution;iterations;pivot;shellParam;type;duration_us;;;;Prawy;Lewy;Losowy;?redni
 18.04.2026 23:36;QuickSort;Array;25000;int;Random;50;Random;Unknown;SINGLE;4809;;;AVG;4183;4382;4503;4148
 18.04.2026 23:36;QuickSort;Array;25000;int;Random;50;Random;Unknown;SINGLE;4369;;;;;;;
 18.04.2026 23:36;QuickSort;Array;25000;int;Random;50;Random;Unknown;SINGLE;4592;;;;;;;
@@ -251,8 +251,8 @@ timestamp;algorithm;structure;size;dataType;distribution;iterations;pivot;shellP
 18.04.2026 23:36;ShellSort;Array;25000;int;Random;50;Unknown;original;SINGLE;6644;;;;;;;
 18.04.2026 23:36;ShellSort;Array;25000;int;Random;50;Unknown;original;SINGLE;6267;;;;;;;
 18.04.2026 23:36;ShellSort;Array;25000;int;Random;50;Unknown;original;SINGLE;6416;;;;;;;
-18.04.2026 23:36;ShellSort;Array;25000;int;Random;50;Unknown;original;SINGLE;6360;;;;;;;
-18.04.2026 23:36;ShellSort;Array;25000;int;Random;50;Unknown;original;SINGLE;6398;;;;;;;
+18.04.2026 23:36;ShellSort;Array;25000;int;Random;50;Unknown;original;SINGLE;6360;;;Oryginalny;Knutha;;;
+18.04.2026 23:36;ShellSort;Array;25000;int;Random;50;Unknown;original;SINGLE;6398;;?rednia;6446;5352;;;
 18.04.2026 23:36;ShellSort;Array;25000;int;Random;50;Unknown;original;SINGLE;6480;;;;;;;
 18.04.2026 23:36;ShellSort;Array;25000;int;Random;50;Unknown;original;SINGLE;6313;;;;;;;
 18.04.2026 23:36;ShellSort;Array;25000;int;Random;50;Unknown;original;SINGLE;6445;;;;;;;

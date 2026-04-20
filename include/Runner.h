@@ -19,8 +19,11 @@
 
 #ifndef APPLICATION_H
 #define APPLICATION_H
+//Klasa która uruchamia cały program
+//ma 3 tryby działania:single file, benchmark oraz help
 class Runner {
     public:
+    //uruchamia odpowiedni typ programu w zależności od typu danych
     void run() {
 
         if (Parameters::runMode == Parameters::RunModes::help) {
@@ -39,6 +42,7 @@ class Runner {
         }
 
     }
+    //wybieranie trybu działąnia programu
 private:
     template <typename T>
     void startWithTemplate() {
@@ -46,10 +50,16 @@ private:
             runBenchmark<T>();
         }else if (Parameters::runMode == Parameters::RunModes::singleFile) {
             runSingleFile<T>();
+        }else if (Parameters::runMode == Parameters::RunModes::help) {
+            Parameters::help();
         }
 
     }
 
+    //uruchomienie trybu single file
+    //odczytuje wartości z pliku
+    //uruchamia sortowanie w zależności od typu struktury
+    //zapisuje wyniki do pliku
     template <typename T>
     void runSingleFile() {
         std::cout << "DEBUG: Start runSingleFile" << std::endl;
@@ -110,6 +120,7 @@ private:
         }
     }
 
+    //uruchamienie trybu benchmark
     template <typename T>
     void runBenchmark() {
         FileWriter::prepareFile(Parameters::resultsFile);
@@ -135,6 +146,10 @@ private:
         file.close();
     }
 
+    //uruchamianie benchmark dla tablicy
+    //uruchamia sortowanie oraz mieerzy czas
+    //licze średnią, szuka wartości min i max
+    //wywołue zapisywanie do pliku
     template <typename T>
     void runBenchmarkArray(std::ofstream& file, int size, int iterations) {
         if (iterations <= 0) return;
@@ -166,6 +181,10 @@ private:
         FileWriter::writeSummary(file, average, minTime, maxTime);
     }
 
+    //uruchamianie benchmark dla listy jednikierunkowej
+    //uruchamia sortowanie oraz mieerzy czas
+    //licze średnią, szuka wartości min i max
+    //wywołue zapisywanie do pliku
     template <typename T>
     void runBenchmarkSinglyLinkedList(std::ofstream& file, int size, int iterations) {
         if (iterations <= 0) return;
@@ -200,6 +219,10 @@ private:
 
     }
 
+    //uruchamianie benchmark dla listy dwukierunkowej
+    //uruchamia sortowanie oraz mieerzy czas
+    //licze średnią, szuka wartości min i max
+    //wywołue zapisywanie do pliku
     template <typename T>
     void runBenchmarkDoublyLinkedList(std::ofstream& file,int size, int iterations) {
         if (iterations <= 0) return;
@@ -232,6 +255,10 @@ private:
         FileWriter::writeSummary(file, average, minTime, maxTime);
     }
 
+    //uruchamianie benchmark dla stosu
+    //uruchamia sortowanie oraz mieerzy czas
+    //licze średnią, szuka wartości min i max
+    //wywołue zapisywanie do pliku
     template <typename T>
     void runBenchmarkStack(std::ofstream& file, int size, int iterations) {
         if (iterations <= 0) return;
@@ -264,6 +291,10 @@ private:
     }
 
 
+    //uruchamianie benchmark dla listy jednikierunkowej
+    //uruchamia sortowanie oraz mierzy czas
+    //licze średnią, szuka wartości min i max
+    //wywołue zapisywanie do pliku
     template <typename T>
     void runBenchmarkBinaryTree(std::ofstream& file, int size, int iterations) {
         if (iterations <= 0 || size <= 0) return;
@@ -298,6 +329,7 @@ private:
         FileWriter::writeSummary(file, average, minTime, maxTime);
     }
 
+    //uruchamia sortowanie tablicy w zależności od algorytmu
     template <typename T>
     void sortArray(Array<T>& array) {
         switch (Parameters::algorithm) {
@@ -308,6 +340,7 @@ private:
         }
     }
 
+    //uruchamia sortowanie listy jednokierunkowej w zależności od algorytmu
     template <typename T>
     void sortSinglyLinkedList(SinglyLinkedList<T>& list) {
         switch (Parameters::algorithm) {
@@ -318,6 +351,7 @@ private:
         }
     }
 
+    //uruchamia sortowanie listy dwukierunkowej w zależności od algorytmu
     template <typename T>
     void sortDoublyLinkedList(DoublyLinkedList<T>& list) {
         switch (Parameters::algorithm) {
@@ -328,6 +362,7 @@ private:
         }
     }
 
+    //uruchamia sortowanie stosu jednokierunkowej w zależności od algorytmu
     template <typename T>
     void quickSortStack(Stack<T>& stack) {
 

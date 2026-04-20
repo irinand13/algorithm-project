@@ -6,14 +6,15 @@
 #ifndef DOUBLYLINKEDLIST_H
 #define DOUBLYLINKEDLIST_H
 
-
+// klasa listy dwukierunkowej
 template<class T>
 class DoublyLinkedList {
     public:
+    //węzeł
     struct Node {
-        T data;
-        Node* next;
-        Node* prev;
+        T data;  //dane
+        Node* next; //wskaźnik na poprzednią wartość
+        Node* prev; //wskaźnik na następną wartość
 
         Node(T d) {
             data = d;
@@ -25,14 +26,14 @@ class DoublyLinkedList {
     Node* tail;
     int size;
 
-    //konstruktor
+    //konstruktor listy dwukierunkowej
     DoublyLinkedList() {
         head = nullptr;
         tail = nullptr;
         size = 0;
     };
 
-    //destruktor
+    //destruktor listy dwukierunkowej
     ~DoublyLinkedList() {
         Node *current = head;
         while (current != nullptr) {
@@ -45,6 +46,7 @@ class DoublyLinkedList {
         size = 0;
     };
 
+    //konstruktor kopiujący
     DoublyLinkedList(const DoublyLinkedList &other) {
         head = nullptr;
         tail = nullptr;
@@ -57,6 +59,7 @@ class DoublyLinkedList {
         }
     }
 
+    // Operator przypisania
     DoublyLinkedList& operator=(const DoublyLinkedList &other) {
         if (this == &other) return *this;
 
@@ -80,6 +83,7 @@ class DoublyLinkedList {
         return *this;
     }
 
+    // Operator indeksowania
     T& operator[](int index) {
         Node* current = head;
         for (int i = 0; i < index && current != nullptr; ++i) {
@@ -89,6 +93,7 @@ class DoublyLinkedList {
     }
 
 
+    //dodaje element na koniec listy
     void push_back(T d) {
         Node *newNode = new Node(d);
         if (head == nullptr) {
@@ -101,6 +106,7 @@ class DoublyLinkedList {
         size++;
     }
 
+    //odczytuje wartości listy
     void read() {
         cout << "DoublyLinkedList::read()" << endl;
         Node *current = head;
@@ -111,12 +117,18 @@ class DoublyLinkedList {
         }
     }
 
+    //zwraca rozmiar
     int getSize () {return size;}
+    //zwraca początek listy
     Node* getHead() {return head;}
+    //zwraca koniec listy
     Node* getTail() {return tail;}
+    //ustawia początek listy
     void setHead(Node* newHead) {head = newHead;}
+    //ustawia koniec listy
     void setTail(Node* newTail) {tail = newTail;}
 
+    //sprawdza czy listy jest posortowana
     bool isSorted() {
         Node* current = head;
 
@@ -129,6 +141,8 @@ class DoublyLinkedList {
 
         return true;
     }
+
+    //zwraca wartość minimalną listy
     T findMin() {
         if (head == nullptr) {
             cout << "The list is empty" << endl;
@@ -145,6 +159,7 @@ class DoublyLinkedList {
         return min;
     }
 
+    //zwraca wartość maksymalną listy
     T findMax() {
         if (head == nullptr) {
             cout << "The list is empty" << endl;
@@ -161,6 +176,7 @@ class DoublyLinkedList {
         return max;
     }
 
+    //dodawanie wartości do listy
     void push(T d) {
         Node* newNode = new Node(d);
 
@@ -174,6 +190,7 @@ class DoublyLinkedList {
         size++;
     }
 
+    //czyszczenie listy
     void clear() {
         Node* current = head;
 

@@ -20,7 +20,6 @@ function Uruchom-Benchmark($subfolder, $plik, $cmd_args) {
     # Używamy ${} aby PowerShell nie pomylił dwukropka ze zmienną dyskową
     Write-Host "Runner (n=50) -> ${subfolder} | ${cmd_args}" -ForegroundColor Cyan
 
-    # Wywołanie z tablicą argumentów
     & $exe $arg_array
 }
 

@@ -10,6 +10,9 @@
 
 namespace SinglyLinkedListSort {
 
+    // Metoda sortawania przez wstawianie
+    //tworzy nowa posortowaną listę
+    //wstawie do listy wartości w odpowidnie miejsce
     template<class T>
     typename SinglyLinkedList<T>::Node*
     insertionSort(typename SinglyLinkedList<T>::Node* head)
@@ -55,6 +58,9 @@ namespace SinglyLinkedListSort {
         list.setHead(newHead);
     }
 
+    //Rekurencja do sortowania szybkiego
+    //dzieli listę na 3 części(mniejsze, równe i większe od piwota)
+    // wstawia wartości w odpowiednie miejsce
     template<class T>
     typename SinglyLinkedList<T>::Node* quickSortRecursive(typename SinglyLinkedList<T>::Node* head, int currentSize,Parameters::Pivots pivotType) {
         using Node = typename SinglyLinkedList<T>::Node;
@@ -142,12 +148,16 @@ namespace SinglyLinkedListSort {
     }
 
 
+    //Sortowanie szybkie
+    //wywoła metodę rekurencyjną i ustawia nową głowę
     template<class T>
     void quickSort(SinglyLinkedList<T>& list, Parameters::Pivots pivotType) {
         if (list.getSize() <= 1) return;
 
         list.head = quickSortRecursive<T>(list.head, list.size, pivotType);
     }
+
+
 
     // Ogólny szablon dla liczb
     template<typename T>
@@ -156,7 +166,10 @@ namespace SinglyLinkedListSort {
         return static_cast<double>(value - min) / static_cast<double>(max - min);
     }
 
+
+
     // Obsługiwanie stringów
+    // Oblicza przybliżoną pozycję elementu na podstawie wartości ASCII pierwszego znaku
     template<>
     inline double getNormalizedValue<std::string>(std::string value, std::string min, std::string max) {
         if (max == min) return 0.0;
@@ -171,6 +184,12 @@ namespace SinglyLinkedListSort {
     }
 
 
+    //Sortowanie kubełkowe
+    //Tworzy kubełki w których przechowywane są wartości
+    //Robi alokacje pamięci dla kubełków
+    //Na podstawie wzoru rozdziela wartości do odpowiednich kubełków
+    //Sortuje elementy wewnątrz kubełków
+    //scala kubełki
     template<class T>
     void bucketSort(SinglyLinkedList<T>& singlyList) {
         const int size = singlyList.getSize();
@@ -208,6 +227,8 @@ namespace SinglyLinkedListSort {
     }
 
 
+    //Sortowanie Shell
+    // Wykonuje porównania elementów oddalonych o zmniejszający się gap.
     template<class T>
     void shellSort(SinglyLinkedList<T>& list, Parameters::ShellParameters shellParameter) {
         using Node = typename SinglyLinkedList<T>::Node;

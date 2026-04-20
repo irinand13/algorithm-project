@@ -13,9 +13,11 @@
 
 namespace DataGenerator
 {
+    //Generuje wartości różnych typów
     template <typename T>
     T generateValue();
 
+    //Generuje wartość losową typu int
     template <>
     inline int generateValue<int>(){
         static std::random_device rd;
@@ -27,6 +29,7 @@ namespace DataGenerator
         return dist(gen);
     }
 
+    //Generuje wartość losową typu float
     template <>
     inline float generateValue<float>(){
         static std::random_device rd;
@@ -38,6 +41,7 @@ namespace DataGenerator
         return dist(gen);
     }
 
+    //Generuje wartość losową typu double
     template <>
     inline double generateValue<double>(){
         static std::random_device rd;
@@ -48,6 +52,7 @@ namespace DataGenerator
         return dist(gen);
     }
 
+    //Generuje wartość losową typu char
     template <>
     inline char generateValue<char>(){
         static std::random_device rd;
@@ -58,6 +63,7 @@ namespace DataGenerator
         return static_cast<char>(dist(gen));
     }
 
+    //Generuje wartość losową typu unsigned int
     template <>
     inline unsigned int generateValue <unsigned int>(){
         static std::random_device rd;
@@ -68,6 +74,7 @@ namespace DataGenerator
         return dist(gen);
     }
 
+    //Generuje wartość losową typu stirng
     template <>
     inline std::string generateValue<std::string>(){
         static std::random_device rd;
@@ -85,6 +92,7 @@ namespace DataGenerator
     }
 
 
+    //Funkcja która odwraca kolejność elementów w tablicy
     template <typename T>
     void reverseArray(Array<T>& arr){
         int left = 0;
@@ -97,6 +105,8 @@ namespace DataGenerator
         }
     }
 
+
+    //Funkcja która odwraca kolejność elementów w liście jednokierunkowej
     template <typename T>
     void reverseSinglyList(SinglyLinkedList<T>& list) {
         typename SinglyLinkedList<T>::Node* prev = nullptr;
@@ -113,6 +123,8 @@ namespace DataGenerator
         list.setHead(prev);
     }
 
+
+    //Funkcja która odwraca kolejność elementów w liście dwukierunkowej
     template <typename T>
     void reverseDoublyList(DoublyLinkedList<T>& list){
         typename DoublyLinkedList<T>::Node* current = list.getHead();
@@ -129,6 +141,7 @@ namespace DataGenerator
         if (temp != nullptr) list.setHead(temp->prev);
     }
 
+    //Generuje tablicę i wypełnia ją losowymi elemntami
     template <typename T>
     Array<T> generateArray(int size,Parameters::Distribution distribution){
         Array<T> arr(size);
@@ -136,6 +149,7 @@ namespace DataGenerator
         for (int i = 0; i < size; i++) arr[i] = generateValue<T>();
 
 
+        // wybór rozkładu elementów
         switch (distribution) {
             case Parameters::Distribution::random:break;
 
@@ -167,12 +181,14 @@ namespace DataGenerator
         return arr;
     }
 
+    //Generuje listę jednokierunkową i wypełnia ją losowymi elemntami
     template <typename T>
     SinglyLinkedList<T> generateSinglyLinkedList(int size, Parameters::Distribution distribution){
         SinglyLinkedList<T> list;
 
         for (int i = 0; i < size; i++)list.push(generateValue<T>());
 
+        // wybór rozkładu elementów
         switch (distribution){
             case Parameters::Distribution::random:
                 break;
@@ -228,6 +244,7 @@ namespace DataGenerator
         return list;
     }
 
+    //Generuje listę dwukierunkową i wypełnia ją losowymi elemntami
     template <typename T>
     DoublyLinkedList<T> generateDoublyLinkedList(int size, Parameters::Distribution distribution){
     DoublyLinkedList<T> list;
@@ -235,6 +252,7 @@ namespace DataGenerator
     for (int i = 0; i < size; i++)
         list.push(generateValue<T>());
 
+        // wybór rozkładu elementów
     switch (distribution){
         case Parameters::Distribution::random:
             break;
@@ -249,7 +267,7 @@ namespace DataGenerator
             break;
         }
 
-        case Parameters::Distribution::ascending50Per:{
+        case Parameters::Distribution::ascending50Per: {
             int n = list.getSize();
             int half = n / 2;
 
@@ -279,8 +297,6 @@ namespace DataGenerator
 
             break;
         }
-
-
         default:
             break;
         }
@@ -289,6 +305,7 @@ namespace DataGenerator
         return list;
     }
 
+    //wypełnia stos losowymi liczbami
     template <typename T>
     Stack<T> generateStack(int size) {
         Stack<T> stack;
@@ -298,6 +315,7 @@ namespace DataGenerator
         return stack;
     }
 
+    //wypełnia drzewo losowymi liczbami
     template <typename T>
     BinaryTree<T> generateBinaryTree(int size) {
         BinaryTree<T> tree;

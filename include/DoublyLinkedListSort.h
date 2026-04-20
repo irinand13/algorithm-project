@@ -6,6 +6,9 @@
 #define DOUBLYLINKEDLISTSORT_H
 namespace DoublyLinkedListSort {
 
+    // Metoda sortawania przez wstawianie
+    //tworzy nowa posortowaną listę
+    //wstawie do listy wartości w odpowidnie miejsce
     template<class T>
     typename DoublyLinkedList<T>::Node*
     insertionSort(typename DoublyLinkedList<T>::Node* head)
@@ -53,6 +56,9 @@ namespace DoublyLinkedListSort {
     }
 
 
+    //Rekurencja do sortowania szybkiego
+    //dzieli listę na 3 części(mniejsze, równe i większe od piwota)
+    // wstawia wartości w odpowiednie miejsce
     template<class T>
     typename DoublyLinkedList<T>::Node*
     quickSortRecursive(typename DoublyLinkedList<T>::Node* head, int size,Parameters::Pivots pivotType)
@@ -151,6 +157,8 @@ namespace DoublyLinkedListSort {
         return newHead;
     }
 
+    //Sortowanie szybkie
+    //wywoła metodę rekurencyjną i ustawia nową głowę
     template<class T>
     void quickSort(DoublyLinkedList<T>& list,Parameters::Pivots pivotType) {
         if (list.getSize() <= 1) return;
@@ -166,6 +174,7 @@ namespace DoublyLinkedListSort {
     }
 
     // Obsługiwanie stringów
+    // Oblicza przybliżoną pozycję elementu na podstawie wartości ASCII pierwszego znaku
     template<>
     inline double getNormalizedValue<std::string>(std::string value, std::string min, std::string max) {
         if (max == min) return 0.0;
@@ -179,6 +188,13 @@ namespace DoublyLinkedListSort {
         return static_cast<double>(v - mi) / static_cast<double>(ma - mi);
     }
 
+
+    //Sortowanie kubełkowe
+    //Tworzy kubełki w których przechowywane są wartości
+    //Robi alokacje pamięci dla kubełków
+    //Na podstawie wzoru rozdziela wartości do odpowiednich kubełków
+    //Sortuje elementy wewnątrz kubełków
+    //scala kubełki
     template<class T>
     void bucketSort(DoublyLinkedList<T>& list) {
 
@@ -225,6 +241,8 @@ namespace DoublyLinkedListSort {
         delete[] buckets;
     }
 
+    //Sortowanie Shell
+    // Wykonuje porównania elementów oddalonych o zmniejszający się gap.
     template<class T>
     void shellSort(DoublyLinkedList<T>& list, Parameters::ShellParameters shellParameter) {
         using Node = typename DoublyLinkedList<T>::Node;

@@ -15,6 +15,7 @@
 namespace FileWriter {
     inline bool headerWritten = false;
 
+    //zwraca nazwę algorytmu typu string
     inline std::string getAlgorithmName(Parameters::Algorithms alg) {
         switch(alg) {
             case Parameters::Algorithms::quick: return "QuickSort";
@@ -24,6 +25,7 @@ namespace FileWriter {
         }
     }
 
+    //zwraca nazwę struktury typu string
     inline std::string getStructureName(Parameters::Structures str) {
         switch(str) {
             case Parameters::Structures::stack: return "Stack";
@@ -35,6 +37,7 @@ namespace FileWriter {
         }
     }
 
+    //zwraca nazwę typu danych typu string
     inline std::string getDataTypeName(Parameters::DataTypes dataType) {
         switch (dataType) {
             case Parameters::DataTypes::typeInt: return "int";
@@ -48,6 +51,7 @@ namespace FileWriter {
         }
     }
 
+    //zwraca nazwę rozkładu elementów typu string
     inline std::string getDistributionName(Parameters::Distribution dis) {
         switch (dis) {
             case Parameters::Distribution::random: return "Random";
@@ -58,6 +62,7 @@ namespace FileWriter {
         }
     }
 
+    //zwraca nazwę pivota typu string
     inline std::string getPivotName(Parameters::Pivots pivot) {
         switch (pivot) {
             case Parameters::Pivots::random: return "Random";
@@ -68,6 +73,7 @@ namespace FileWriter {
         }
     }
 
+    //zwraca nazwę nazwę wzoru na odstęp typu string
     inline std::string getShellParameterName(Parameters::ShellParameters shellParameter) {
         switch (shellParameter) {
             case Parameters::ShellParameters::option1: return "original";
@@ -76,6 +82,10 @@ namespace FileWriter {
         }
     }
 
+
+
+    //sprawdza czy plik jest pusty
+    //dodaje nagłowek
     inline void prepareFile(const std::string& filename) {
         std::ifstream check(filename);
         bool fileExists = check.good();
@@ -93,6 +103,7 @@ namespace FileWriter {
         }
     }
 
+    //zapisuje wyniki pojedynczej iteracji
     inline void writeSingleIterationToFile(std::ofstream& file,
         int size,
         int iterations,
@@ -100,7 +111,7 @@ namespace FileWriter {
 
         auto now = std::chrono::system_clock::now();
         std::time_t nowTime = std::chrono::system_clock::to_time_t(now);
-        std::tm* timePtr = std::localtime(&nowTime);
+        std::tm* timePtr = std::localtime(&nowTime); //mierzenie czasu
 
         file << std::put_time(timePtr, "%Y-%m-%d %H:%M:%S") << ";"
              << getAlgorithmName(Parameters::algorithm) << ";"
@@ -115,12 +126,14 @@ namespace FileWriter {
     }
 
 
+    //zapisuje średnią, min i max ze wszystkich iteracji
     inline void writeSummary(std::ofstream& file, long long avg, long long min, long long max) {
         file << ";;;;;;;;;AVG;" << avg << "\n";
         file << ";;;;;;;;;MIN;" << min << "\n";
         file << ";;;;;;;;;MAX;" << max << "\n";
     }
 
+    // Zapisuje zawartość dowolnej struktury liniowej do pliku oraz rozmiar i kolejne elementy
     template <typename T, typename Container>
     static void writeStructureToFile(const std::string& filename, Container& container) {
         std::ofstream file(filename);
@@ -132,6 +145,8 @@ namespace FileWriter {
         }
     }
 
+    // zZapis drzewa binarnego w porządku inorder
+    // Umożliwia zapis posortowanych danych z BST.
     template <typename T>
     static void writeInOrder(std::ofstream& file, typename BinaryTree<T>::Node* node) {
         if (node == nullptr) return;
@@ -140,6 +155,7 @@ namespace FileWriter {
         writeInOrder<T>(file, node->right);
     }
 
+    //zapisuje drzewo binarne do pliku  w porządku inorder
     template <typename T>
     static void writeStructureToFile(const std::string& filename, BinaryTree<T>& tree) {
         std::ofstream file(filename);
